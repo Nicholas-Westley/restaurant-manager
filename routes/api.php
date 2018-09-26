@@ -8,6 +8,10 @@ Route::group(['middleware'=>'api'], function() {
     Route::get('recipes', function () {
         return Recipe::all();
     });
+    // FETCH RECIPE BY ID
+    Route::get('recipe/{recipeId}', function($recipeId) {
+        return Recipe::whereId($recipeId)->with('ingredients')->first();
+    });
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -1,16 +1,37 @@
 <template>
    <div class="management-pane">
-       <recipe-list/>
+       <recipe-list
+           :recipes="recipes"
+           @recipeSelected="recipeSelected"
+       />
+       <add-item-to-order :recipe="selectedRecipe"/>
    </div>
 </template>
 
 <script>
     import RecipeList from "./RecipeList";
+    import AddItemToOrder from "./AddItemToOrder";
     export default {
         components: {
-            RecipeList
+            RecipeList,
+            AddItemToOrder
         },
-        mounted() {}
+        data () {
+            return {
+                selectedRecipe: null,
+                recipes: []
+            }
+        },
+        methods: {
+            recipeSelected(recipe) {
+                axios.get(`recipe/${recipe.id}`)
+                    .then(response => this.selectedRecipe = response.data);
+            }
+        },
+        mounted() {
+            axios.get('recipes')
+                .then(response => (this.recipes = response.data));
+        }
     }
 </script>
 

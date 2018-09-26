@@ -6,6 +6,8 @@ import Vue from 'vue';
 import Main from './Main';
 // import routes from './routes';
 Vue.config.productionTip = false;
+axios.defaults.baseURL = `http://food-order-tracker.development/api/`;
+
 
 // Vue.use(VueRouter);
 
