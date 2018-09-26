@@ -1,6 +1,12 @@
 /node_modules
 /public/hot
+/public/css
+/public/js
 /public/storage
+/public/assets
+/public/cache
+/public/favicon.ico
+/public/mix-manifest.json
 /storage/*.key
 /vendor
 /.idea
@@ -12,3 +18,4 @@ npm-debug.log
 yarn-error.log
 .env
 .phpunit.result.cache
+*.sql

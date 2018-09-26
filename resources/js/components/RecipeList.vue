@@ -3,7 +3,8 @@
         <h4>Recipes</h4>
         <div class="recipe-list-container">
             <div class="recipe-square" v-for="recipe in recipes">
-                {{ recipe.name }}
+                <h4>{{ recipe.name }}</h4>
+                {{ recipe.description }}
             </div>
         </div>
     </div>
