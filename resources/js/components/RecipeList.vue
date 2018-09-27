@@ -1,6 +1,6 @@
 <template>
     <div class="recipe-list">
-        <h4>Select and Item to order</h4>
+        <h4>Select an Item to configure</h4>
         <div class="recipe-list-container">
             <div
                 class="recipe-square" v-for="recipe in recipes"
@@ -18,34 +18,29 @@
 
 <script>
     export default {
-        props: ['recipes'],
-        data () {
-            return {
-                selectedRecipe: null
-            }
-        },
+        props: ['recipes', 'selectedRecipe'],
         methods: {
             onRecipeClicked(recipe) {
-                this.selectedRecipe = recipe;
                 this.$emit('recipeSelected', recipe);
             }
         }
     }
 </script>
 
-<style lang="css">
+<style scoped>
     .recipe-list {
 
     }
 
     .recipe-list-container {
         display: flex;
+        flex-wrap: wrap;
     }
 
     .recipe-square {
         width: 200px;
         height: 150px;
-        margin: 0 10px;
+        margin: 10px 10px;
         background-color: #FEFFFE;
         color: white;
         text-shadow: #1b1e21;
