@@ -4,7 +4,7 @@
             No items in Order
         </div>
         <div v-else>
-            <button class="btn btn-success float-right;">Submit Order</button>
+            <submit-order :submittable="!selectedRecipe"/>
             <div class="order-item">
                 <div v-for="(item, index) in currentOrder">
                     <h4>
@@ -28,16 +28,18 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-success float-right;">Submit Order</button>
+            <submit-order :submittable="!selectedRecipe"/>
         </div>
     </div>
 </template>
 
 <script>
-  export default {
-      name: "OrderBeingCreated",
-      props: ['submittable', 'currentOrder'],
-  }
+import SubmitOrder from "./SubmitOrder";
+export default {
+    name: "OrderBeingCreated",
+    props: ['submittable', 'currentOrder', 'selectedRecipe'],
+    components: { SubmitOrder }
+}
 </script>
 
 <style scoped>

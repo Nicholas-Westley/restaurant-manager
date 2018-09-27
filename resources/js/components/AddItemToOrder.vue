@@ -1,5 +1,9 @@
 <template>
-   <div class="add-item-container">
+    <div class="add-item-container">
+        <add-item
+            @itemAdded="$emit('itemAdded', { recipe: selectedRecipe, ingredientIds: formData })"
+            @cancelAdd="$emit('itemAdded', null)"
+        />
         <h1>{{ selectedRecipe.name }}</h1>
         <h3>{{ selectedRecipe.description }}</h3>
         <div v-for="ingredient in selectedRecipe.ingredients">
@@ -12,13 +16,18 @@
                 {{ ingredient.name }}
             </label>
         </div>
-        <button @click="$emit('itemAdded', { recipe: selectedRecipe, ingredientIds: formData })" class="btn btn-primary">Add Item To Order</button>
-        <button @click="$emit('itemAdded', null)" class="btn btn-danger">Cancel</button>
-    </div>
+        <add-item
+            @itemAdded="$emit('itemAdded', { recipe: selectedRecipe, ingredientIds: formData })"
+            @cancelAdd="$emit('itemAdded', null)"
+        />
+   </div>
 </template>
 
 <script>
+    import AddItem from './AddItem';
     export default {
+        name: "add-item-to-order",
+        components: { AddItem },
         props: ['selectedRecipe'],
         data() {
             return {

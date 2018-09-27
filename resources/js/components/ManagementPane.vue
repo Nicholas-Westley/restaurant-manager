@@ -17,9 +17,9 @@
         <div class="info-pane">
             <!-- ORDER IN PROCESS -->
             <order-being-created
-                v-if="currentOrder.length"
                 :currentOrder="currentOrder"
                 :submittable="selectedRecipe !== null"
+                :selectedRecipe="selectedRecipe"
                 @itemRemoved="itemRemoved"
             />
         </div>
