@@ -1,14 +1,14 @@
 <template>
     <div>
-        {{ order.recipe.name }}
+        {{ selectedOrder }}
     </div>
 </template>
 
 <script>
     export default {
-        name: "order",
-        props: ['order']
-  }
+        name: "order-detail",
+        props: ['selectedOrder']
+    }
 </script>
 
 <style scoped>

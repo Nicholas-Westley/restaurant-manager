@@ -1,7 +1,9 @@
 <template>
    <div class="order-list">
        <div v-for="order in orders">
-           <order :order="order"/>
+           <order
+               :order="order"
+               @orderSelected="$emit('orderSelected', order)" />
        </div>
    </div>
 </template>
@@ -16,9 +18,11 @@
             }
         },
         mounted() {
-            console.log("mounted");
             axios.get('orders')
-                .then(response => console.log(response) || (this.orders = response.data));
+                .then(response => {
+                    this.orders = response.data;
+                    console.log(this.orders);
+                });
         }
     }
 
@@ -27,6 +31,7 @@
 <style scoped>
     .order-list {
         background-color: white;
-        flex: 0.25;
+        flex: 0.4;
+        overflow-y: auto;
     }
 </style>

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\OrderItemIngredientMap;
 use App\Order;
+use App\OrderItem;
+
 
 class OrdersController extends Controller
 {
@@ -13,8 +16,26 @@ class OrdersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, Response $response) {
-        $orders = Order::with('recipe')
-            ->with('recipe.ingredients')
+        $orders = Order
+            ::with('orderItems')
+            ->with('orderItems.recipe')
+            ->get();
+        return response()->json($orders);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id){
+        $orders = Order
+            ::whereId($id)
+            ->with('orderItems')
+            ->with('orderItems.orderItemIngredientMaps')
+            ->with('orderItems.recipe')
+            ->with('orderItems.recipe.ingredients')
             ->get();
         return response()->json($orders);
     }
@@ -24,18 +45,31 @@ class OrdersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request, Response $response) {
+        $order = new Order();
+        $order->accepted = false;
+        $order->ready = false;
+        $order->served = false;
+        $order->save();
+        $items = $request->input('items');
+        foreach($items as $item) {
+            $recipe = $item['recipe'];
+            $orderItem = new OrderItem();
+            $orderItem->recipe_id = $recipe['id'];
+            $orderItem->order_id = $order->id;
+            $orderItem->completed = false;
+            $orderItem->save();
+            $ingredientIds = $item['ingredientIds'];
+            foreach($ingredientIds as $id => $value) {
+                if(!empty($value)) {
+                    $map = new OrderItemIngredientMap();
+                    $map->ingredient_id = $id;
+                    $map->order_item_id = $orderItem->id;
+                    $map->save();
+                }
+            }
+        }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id){}
-
-
 
     /**
      * Update the specified resource in storage.

@@ -1,6 +1,5 @@
 <template>
     <div class="recipe-list">
-        <h4>Select an Item to configure</h4>
         <div class="recipe-list-container">
             <div
                 class="recipe-square" v-for="recipe in recipes"
@@ -33,7 +32,7 @@
     }
 
     .recipe-square {
-        width: 200px;
+        width: 160px;
         height: 150px;
         margin: 10px 10px;
         background-color: #FEFFFE;

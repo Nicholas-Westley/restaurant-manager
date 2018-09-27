@@ -11,6 +11,7 @@ class Recipe extends Model {
     }
     /* RELATIONSHIP */
     public function orders() {
-        return $this->hasMany('App\Order');
+        return $this->belongsToMany('App\Order');
     }
+
 }

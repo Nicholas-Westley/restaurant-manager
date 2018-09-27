@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model {
-    protected $fillable = ['accepted', 'ready', 'served', 'recipe_id'];
+    protected $fillable = ['accepted', 'ready', 'served'];
 
     /* RELATIONSHIP */
-    public function recipe() {
-        return $this->belongsTo('App\Recipe');
+    public function orderItems() {
+        return $this->hasMany('App\OrderItem');
     }
 }

@@ -30,10 +30,6 @@
                     </div>
                 </div>
             </div>
-            <!-- SUBMIT -->
-            <submit-order
-                @submitOrder="$emit('submitOrder')"
-                :submittable="!selectedRecipe"/>
         </div>
     </div>
 </template>

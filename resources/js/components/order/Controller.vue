@@ -1,29 +1,29 @@
 <template>
-    <div class="management-pane">
-        <div class="action-pane">
-            <!-- RECIPE LIST -->
-            <recipe-list
-                :recipes="recipes"
-                @recipeSelected="recipeSelected"
-                :selectedRecipe="selectedRecipe"
-            />
-            <!-- REFINE ITEM TO ADD TO ORDER -->
-            <add-item-to-order
-                v-if="selectedRecipe"
-                :selectedRecipe="selectedRecipe"
-                @itemAdded="itemAdded"
-            />
-        </div>
-        <div class="info-pane">
-            <!-- ORDER IN PROCESS -->
-            <order-being-created
-                :currentOrder="currentOrder"
-                :submittable="selectedRecipe !== null"
-                :selectedRecipe="selectedRecipe"
-                @itemRemoved="itemRemoved"
-                @submitOrder="submitOrder"
-            />
-        </div>
+    <div class="order-pane">
+        <!-- RECIPE LIST -->
+        <recipe-list
+            :recipes="recipes"
+            class="order-column recipe-list"
+            @recipeSelected="recipeSelected"
+            :selectedRecipe="selectedRecipe"
+        />
+
+        <!-- REFINE ITEM TO ADD TO ORDER -->
+        <add-item-to-order
+            class="order-column add-item-to-order"
+            :selectedRecipe="selectedRecipe"
+            @itemAdded="itemAdded"
+        />
+
+        <!-- ORDER IN PROCESS -->
+        <order-being-created
+            class="order-column order-being-created"
+            :currentOrder="currentOrder"
+            :submittable="selectedRecipe !== null"
+            :selectedRecipe="selectedRecipe"
+            @itemRemoved="itemRemoved"
+            @submitOrder="submitOrder"
+        />
     </div>
 </template>
 
@@ -54,10 +54,14 @@
                 this.currentOrder.splice(index, 1);
             },
             submitOrder() {
-                axios.post('order', this.currentOrder)
-                    .then(response => {
-                        console.log(response);
+                axios.post('orders', {items: this.currentOrder})
+                    .then(response => console.log(response))
+                    .catch(error => {
+                        console.log(error.response)
                     });
+                this.currentOrder = [];
+                console.log("setting to null")
+                console.log(this.currentOrder)
             },
         },
         mounted() {
@@ -68,21 +72,23 @@
 </script>
 
 <style scoped>
-    .management-pane {
+    .order-pane {
         background-color: #FAFAFF;
-        flex: 0.9;
         display: flex;
         flex-direction: row;
+        width: 100%;
     }
-    .action-pane {
-        display: flex;
-        flex-direction: column;
-        width: 65%;
+    .order-column {
         padding: 16px;
     }
-    .info-pane {
-        background-color: #FAFFFA;
-        width: 35%;
-        padding: 16px;
+    .recipe-list {
+        width: 50%;
+    }
+    .add-item-to-order{
+        width: 25%;
+        background-color: white;
+    }
+    .order-being-created {
+        width: 25%;
     }
 </style>
