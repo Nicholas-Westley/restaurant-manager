@@ -42,6 +42,7 @@
         },
         methods: {
             recipeSelected(recipe) {
+                if(this.selectedRecipe && this.selectedRecipe.id === recipe.id) return this.selectedRecipe = null;
                 axios.get(`recipe/${recipe.id}`)
                     .then(response => this.selectedRecipe = response.data);
             },

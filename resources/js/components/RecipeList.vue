@@ -4,7 +4,7 @@
         <div class="recipe-list-container">
             <div
                 class="recipe-square" v-for="recipe in recipes"
-                @click="onRecipeClicked(recipe)"
+                @click="$emit('recipeSelected', recipe)"
                 v-bind:style="{
                     'background-image': 'linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url(assets/images/' + recipe.image + ')',
                     'outline': selectedRecipe && selectedRecipe.id === recipe.id ? 'thick solid #00ccff' : 'none',
@@ -18,12 +18,7 @@
 
 <script>
     export default {
-        props: ['recipes', 'selectedRecipe'],
-        methods: {
-            onRecipeClicked(recipe) {
-                this.$emit('recipeSelected', recipe);
-            }
-        }
+        props: ['recipes', 'selectedRecipe']
     }
 </script>
 
