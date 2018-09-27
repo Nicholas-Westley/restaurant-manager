@@ -16,9 +16,6 @@
 
 <style scoped>
     .order-list {
-        /*flex: 1 auto;*/
-        /*height: auto !important;*/
-        /*min-height: calc(100% - 165px);*/
         background-color: white;
         flex: 0.25;
     }

@@ -4,31 +4,36 @@
             No items in Order
         </div>
         <div v-else>
-            <submit-order :submittable="!selectedRecipe"/>
-            <div class="order-item">
-                <div v-for="(item, index) in currentOrder">
-                    <h4>
-                        {{index+1 }}: {{ item.recipe.name }}
-                        <div
-                            class="float-right"
-                            @click="$emit('itemRemoved', index)"
-                            style="cursor: pointer"
-                            title="Remove Item"
-                        >
-                            x
-                        </div>
-                    </h4>
-                    <h5>{{ item.recipe.description }}</h5>
-                    <div class="ingredients-list">
-                        <div v-for="ingredient in item.recipe.ingredients">
-                            <span :class="item.ingredientIds[ingredient.id] ? 'hasIngredient' : 'notIngredient'">
-                                {{ ingredient.name }}
-                            </span>
-                        </div>
+            <!-- SUBMIT -->
+            <submit-order
+                @submitOrder="$emit('submitOrder')"
+                :submittable="!selectedRecipe"/>
+            <!-- LIST CURRENT -->
+            <div class="order-item" v-for="(item, index) in currentOrder">
+                <h4>
+                    {{index+1 }}: {{ item.recipe.name }}
+                    <div
+                        class="float-right"
+                        @click="$emit('itemRemoved', index)"
+                        style="cursor: pointer"
+                        title="Remove Item"
+                    >
+                        x
+                    </div>
+                </h4>
+                <h5>{{ item.recipe.description }}</h5>
+                <div class="ingredients-list">
+                    <div v-for="ingredient in item.recipe.ingredients">
+                        <span :class="item.ingredientIds[ingredient.id] ? 'hasIngredient' : 'notIngredient'">
+                            {{ ingredient.name }}
+                        </span>
                     </div>
                 </div>
             </div>
-            <submit-order :submittable="!selectedRecipe"/>
+            <!-- SUBMIT -->
+            <submit-order
+                @submitOrder="$emit('submitOrder')"
+                :submittable="!selectedRecipe"/>
         </div>
     </div>
 </template>

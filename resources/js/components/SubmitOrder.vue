@@ -1,13 +1,16 @@
 <template>
-    <div>
-        <span v-if="!submittable">
-            Add or cancel current item to enable submit order
-        </span>
+    <div class="button-container">
         <button
             :disabled="!submittable"
-            class="btn btn-success float-right;">
+            @click="$emit('submitOrder')"
+            class="btn btn-success float-left;">
             Submit Order
         </button>
+        <div
+            class="disabled-explanation"
+            v-if="!submittable">
+            Add or cancel current item to enable submit order
+        </div>
     </div>
 </template>
 
@@ -19,5 +22,11 @@
 </script>
 
 <style scoped>
-
+    .button-container {
+        display: flex;
+    }
+    .disabled-explanation {
+        padding-left: 8px;
+        font-size: 75%;
+    }
 </style>
