@@ -53,7 +53,6 @@
                 this.currentOrder.splice(index, 1);
             },
             submitOrder() {
-                console.log(this.currentOrder)
                 axios.post('order', this.currentOrder)
                     .then(response => {
                         console.log(response);

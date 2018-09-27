@@ -1,17 +1,27 @@
 <template>
    <div class="order-list">
-       <ul>
-           <li>order 1</li>
-       </ul>
+       <div v-for="order in orders">
+           <order :order="order"/>
+       </div>
    </div>
 </template>
 
 <script>
+    import Order from './Order';
     export default {
+        components: {Order},
+        data() {
+            return {
+                orders: []
+            }
+        },
         mounted() {
-            console.log('Component mounted!!!!')
+            console.log("mounted");
+            axios.get('orders')
+                .then(response => console.log(response) || (this.orders = response.data));
         }
     }
+
 </script>
 
 <style scoped>

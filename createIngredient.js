@@ -1,4 +1,17 @@
 
+$tables = DB::select('show tables'); 
+$columns = \Schema::getColumnListing('orders');
+
+
+$o = new Order([
+     "accepted" => false,
+     "ready" => false,
+     "served" => false,
+     "recipe_id" => false
+]);
+
+
+
 $r = new Recipe([
 	name: "Breakfast Burrito",
   description: "Cheaper, Smaller, good for Breakfast",

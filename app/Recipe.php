@@ -9,4 +9,8 @@ class Recipe extends Model {
     public function ingredients() {
         return $this->hasMany('App\Ingredient');
     }
+    /* RELATIONSHIP */
+    public function orders() {
+        return $this->hasMany('App\Order');
+    }
 }
