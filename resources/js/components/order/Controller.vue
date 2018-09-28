@@ -60,8 +60,6 @@
                         console.log(error.response)
                     });
                 this.currentOrder = [];
-                console.log("setting to null")
-                console.log(this.currentOrder)
             },
         },
         mounted() {

@@ -15,7 +15,7 @@ class OrdersController extends Controller
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Response $response) {
+    public function index() {
         $orders = Order
             ::with('orderItems')
             ->with('orderItems.recipe')
@@ -36,7 +36,7 @@ class OrdersController extends Controller
             ->with('orderItems.orderItemIngredientMaps')
             ->with('orderItems.recipe')
             ->with('orderItems.recipe.ingredients')
-            ->get();
+            ->first();
         return response()->json($orders);
     }
 
@@ -78,9 +78,17 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-
+    public function update(Request $request, $id){
+        $updatedOrder = $request->input('data');
+        $order = Order::whereId($id);
+        $order->accepted = $updatedOrder->accepted;
+        $order->ready = $updatedOrder->ready;
+        $order->served = $updatedOrder->served;
+        $order->save();
+        return response()->json([
+            'success' => true,
+            'order' => $order
+        ]);
     }
 
     /* Show the form for editing the specified resource. */
@@ -89,6 +97,4 @@ class OrdersController extends Controller
     public function create(){ }
     /* Remove the specified resource from storage. */
     public function destroy($id) { }
-
-
 }

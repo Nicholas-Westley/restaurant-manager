@@ -28,7 +28,7 @@
         },
         data() {
             return {
-                currentView: 'Cashier'
+                currentView: 'Chef'
             }
         },
         created() {},

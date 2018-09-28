@@ -4,7 +4,10 @@
             <order-list @orderSelected="orderSelected"/>
         </div>
         <div class="cook-column order-detail">
-            <order-detail :selectedOrder="selectedOrder"/>
+            <order-detail
+                :selectedOrder="selectedOrder"
+                @acceptOrder="acceptOrder"
+            />
         </div>
     </div>
 </template>
@@ -24,10 +27,14 @@
             orderSelected(order) {
                 if(this.selectedOrder && this.selectedOrder.id === order.id) return this.selectedOrder = null;
                 axios.get(`orders/${order.id}`)
-                    .then(response => {
-                        this.selectedOrder = response.data
-                        console.log(this.selectedOrder);
-                    });
+                    .then(response => this.selectedOrder = response.data);
+            },
+            acceptOrder(order) {
+                if(this.selectedOrder && !this.selectedOrder.id) return;
+                this.selectedOrder.accepted = true;
+                axios.post(`orders/${order.id}`, { data: order , _method: 'patch'})
+                    .then(response => console.log(response.data))
+                    .catch(error => console.error(error));
             }
         }
     }

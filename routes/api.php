@@ -12,8 +12,9 @@ Route::group(['middleware'=>'api'], function() {
     Route::get('recipe/{recipeId}', function($recipeId) {
         return Recipe::whereId($recipeId)->with('ingredients')->first();
     });
-    // ORDERS
+    // ORDERS RESOURCE
     Route::resource('orders', 'OrdersController');
+
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
