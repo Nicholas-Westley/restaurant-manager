@@ -8,7 +8,6 @@ use App\OrderItemIngredientMap;
 use App\Order;
 use App\OrderItem;
 
-
 class OrdersController extends Controller
 {
     /**
@@ -18,6 +17,7 @@ class OrdersController extends Controller
     public function index() {
         $orders = Order
             ::with('orderItems')
+            ->orderBy('id', 'DESC')
             ->with('orderItems.recipe')
             ->get();
         return response()->json($orders);
@@ -30,14 +30,14 @@ class OrdersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        $orders = Order
+        $order = Order
             ::whereId($id)
             ->with('orderItems')
             ->with('orderItems.orderItemIngredientMaps')
             ->with('orderItems.recipe')
             ->with('orderItems.recipe.ingredients')
             ->first();
-        return response()->json($orders);
+        return response()->json($order);
     }
 
     /**
@@ -80,21 +80,34 @@ class OrdersController extends Controller
      */
     public function update(Request $request, $id){
         $updatedOrder = $request->input('data');
-        $order = Order::whereId($id);
-        $order->accepted = $updatedOrder->accepted;
-        $order->ready = $updatedOrder->ready;
-        $order->served = $updatedOrder->served;
+        $order = Order::whereId($id)->first();
+        $order->accepted = $updatedOrder['accepted'];
+        $order->ready = $updatedOrder['ready'];
+        $order->served = $updatedOrder['served'];
         $order->save();
-        return response()->json([
-            'success' => true,
-            'order' => $order
-        ]);
+        return response()->json([ 'success' => true ]);
+    }
+
+    /* Remove the specified resource from storage. */
+    public function destroy($id) {
+        $order = Order
+            ::whereId($id)
+            ->with('orderItems')
+            ->with('orderItems.orderItemIngredientMaps')
+            ->first();
+        foreach($order->orderItems as $item) {
+            foreach($item->orderItemIngredientMaps as $map) {
+                $map->delete();
+            }
+            $item->delete();
+        }
+        $order->delete();
+        return $this->index();
     }
 
     /* Show the form for editing the specified resource. */
     public function edit($id) { }
     /* Show the form for creating a new resource. */
     public function create(){ }
-    /* Remove the specified resource from storage. */
-    public function destroy($id) { }
+
 }

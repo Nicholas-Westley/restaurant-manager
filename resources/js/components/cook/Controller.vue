@@ -1,12 +1,15 @@
 <template>
     <div class="cook-pane">
         <div class="cook-column order-list">
-            <order-list @orderSelected="orderSelected"/>
+            <order-list
+                :orders="orders"
+                @orderSelected="orderSelected"/>
         </div>
         <div class="cook-column order-detail">
             <order-detail
                 :selectedOrder="selectedOrder"
                 @acceptOrder="acceptOrder"
+                @deleteOrder="deleteOrder"
             />
         </div>
     </div>
@@ -20,8 +23,13 @@
         components: { OrderList, OrderDetail },
         data() {
             return {
+                orders: [],
                 selectedOrder: null
             }
+        },
+        mounted() {
+            axios.get('orders')
+                .then( response => this.orders = response.data );
         },
         methods: {
             orderSelected(order) {
@@ -30,10 +38,21 @@
                     .then(response => this.selectedOrder = response.data);
             },
             acceptOrder(order) {
-                if(this.selectedOrder && !this.selectedOrder.id) return;
+                if(!this.selectedOrder || !this.selectedOrder.id) return;
                 this.selectedOrder.accepted = true;
                 axios.post(`orders/${order.id}`, { data: order , _method: 'patch'})
                     .then(response => console.log(response.data))
+                    .catch(error => console.error(error));
+            },
+            deleteOrder(order) {
+                if(!order || !order.id) return;
+                if(order.id === this.selectedOrder.id) this.selectedOrder = null;
+                axios.delete(`orders/${order.id}`)
+                    .then(response => {
+                        console.log("@!!!!!!")
+                        console.log(response.data)
+                        this.orders = response.data
+                    })
                     .catch(error => console.error(error));
             }
         }

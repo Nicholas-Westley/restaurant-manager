@@ -1,7 +1,7 @@
 <template>
    <div class="order-list">
        <div v-for="order in orders">
-           <order
+           <order-list-item
                :order="order"
                @orderSelected="$emit('orderSelected', order)" />
        </div>
@@ -9,21 +9,10 @@
 </template>
 
 <script>
-    import Order from './Order';
+    import OrderListItem from './OrderListItem';
     export default {
-        components: {Order},
-        data() {
-            return {
-                orders: []
-            }
-        },
-        mounted() {
-            axios.get('orders')
-                .then(response => {
-                    this.orders = response.data;
-                    console.log(this.orders);
-                });
-        }
+        props: ['orders'],
+        components: { OrderListItem }
     }
 
 </script>
