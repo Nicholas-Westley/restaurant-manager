@@ -5,11 +5,18 @@
             :selectedOrder="selectedOrder"
             @acceptOrder="$emit('acceptOrder', selectedOrder)"
             @deleteOrder="$emit('deleteOrder', selectedOrder)"
+            style="margin-bottom: 16px;"
         />
+
+
+
         <div
             class="order-item"
             v-for="item in selectedOrder.order_items"
-            :class="item.completed ? 'item-completed' : ''">
+            :class="{
+                'item-completed': item.completed,
+                'item-in-progress': item.in_progress
+             }">
             <!-- ORDER STATE INFO -->
             <span v-if="item.completed">Item Completed</span>
             <!-- GENERAL ORDER ITEM INFO -->
@@ -54,9 +61,9 @@
 
 <style scoped>
     .order-item {
-        margin: 16px 0;
         border-top: 1px solid #b8c2cc;
-        padding-top: 4px;
+        padding: 8px;
+
     }
     .selected {
         font-weight: bold;
@@ -66,6 +73,10 @@
     }
     .item-completed {
         opacity: 0.3;
+    }
+    .item-in-progress {
+        background-color: green;
+        color: white;
     }
 
 </style>

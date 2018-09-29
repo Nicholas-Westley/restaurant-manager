@@ -2,7 +2,8 @@
     <div
         :class="{
             'awaiting-acceptance': !order.accepted,
-            'selected': selectedOrder && selectedOrder.id === order.id
+            'selected': selectedOrder && selectedOrder.id === order.id,
+            'in-progress': order.accepted && !order.completed,
         }"
         @click="$emit('orderSelected', order)" class="order">
         <h2>order id: {{ order.id }}</h2>
@@ -30,6 +31,10 @@
     .awaiting-acceptance {
         color: white;
         background-color: red;
+    }
+    .in-progress {
+        color: white;
+        background-color: orange;
     }
     .selected {
         box-shadow:inset 0 0 0 4px #00ccff;

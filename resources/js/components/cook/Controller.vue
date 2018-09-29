@@ -66,6 +66,7 @@
             markItemCompleted(item) {
                 if(!item || !item.id) return;
                 item.completed = true;
+                item.in_progress = false;
                 this.updateItem(item);
             },
             updateItem(item) {
