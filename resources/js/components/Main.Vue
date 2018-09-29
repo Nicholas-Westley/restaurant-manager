@@ -46,6 +46,6 @@
         display: flex;
         align-items: stretch;
         flex-direction: row;
-        height: calc(100vh - 65px);
+        height: calc(100vh - 115px);
     }
 </style>

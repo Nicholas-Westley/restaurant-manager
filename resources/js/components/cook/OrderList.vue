@@ -13,7 +13,13 @@
     import OrderListItem from './OrderListItem';
     export default {
         props: ['orders', 'selectedOrder'],
-        components: { OrderListItem }
+        components: { OrderListItem },
+        computed: {
+            items() {
+                return _.orderBy(this.selectedOrder.order_items,
+                    ['in_progress', 'completed'], ['desc', 'asc']);
+            }
+        }
     }
 
 </script>
@@ -22,5 +28,6 @@
     .order-list {
         flex: 0.4;
         overflow-y: auto;
+        height: calc(100vh - 130px);
     }
 </style>

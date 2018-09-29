@@ -11,6 +11,7 @@
                 :selectedOrder="selectedOrder"
                 @acceptOrder="acceptOrder"
                 @deleteOrder="deleteOrder"
+                @serveOrder="serveOrder"
                 @markItemInProgress="markItemInProgress"
                 @markItemCompleted="markItemCompleted"
             />
@@ -35,6 +36,14 @@
                 .then( response => this.orders = response.data );
         },
         methods: {
+            setOrders(orders) {
+                this.orders = orders;
+                if (this.selectedOrder && this.selectedOrder.id) {
+                    this.orders.forEach(o => {
+                        if (o.id === this.selectedOrder.id) this.selectedOrder = o;
+                    });
+                }
+            },
             orderSelected(order) {
                 if(this.selectedOrder && this.selectedOrder.id === order.id) return this.selectedOrder = null;
                 this.selectedOrder = order;
@@ -42,20 +51,25 @@
                     .then(response => this.selectedOrder = response.data);
             },
             acceptOrder(order) {
-                if(!this.selectedOrder || !this.selectedOrder.id) return;
+                if(!order || !order.id) return;
                 order.accepted = true;
+                this.updateOrder(order);
+            },
+            serveOrder(order) {
+                if(!order || !order.id) return;
+                order.served = true;
                 this.updateOrder(order);
             },
             updateOrder(order) {
                 axios.post(`orders/${order.id}`, { data: order , _method: 'patch'})
-                    .then(response => this.orders = response.data)
+                    .then(response => this.setOrders(response.data))
                     .catch(error => console.error(error));
             },
             deleteOrder(order) {
                 if(!order || !order.id) return;
                 if(order.id === this.selectedOrder.id) this.selectedOrder = null;
                 axios.delete(`orders/${order.id}`)
-                    .then(response => this.orders = response.data )
+                    .then(response => this.setOrders(response.data ))
                     .catch(error => console.error(error));
             },
             markItemInProgress(item) {
@@ -71,7 +85,7 @@
             },
             updateItem(item) {
                 axios.post(`order-items/${item.id}`, { data: item , _method: 'patch'})
-                    .then(response => this.orders = response.data)
+                    .then(response => this.setOrders(response.data ))
                     .catch(error => console.error(error));
             }
 
@@ -88,13 +102,12 @@
         width: 100%;
     }
     .cook-column {
-        padding: 16px;
     }
     .order-list{
         flex: 0.4;
     }
     .order-detail {
         flex: 0.6;
+        padding: 16px;
     }
-
 </style>

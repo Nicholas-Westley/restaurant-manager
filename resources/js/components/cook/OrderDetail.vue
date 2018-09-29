@@ -5,6 +5,7 @@
             :selectedOrder="selectedOrder"
             @acceptOrder="$emit('acceptOrder', selectedOrder)"
             @deleteOrder="$emit('deleteOrder', selectedOrder)"
+            @serveOrder="$emit('serveOrder', selectedOrder)"
             style="margin-bottom: 16px;"
         />
 
@@ -30,7 +31,6 @@
         },
         computed: {
             items() {
-                console.log(this.selectedOrder.order_items)
                 return _.orderBy(this.selectedOrder.order_items,
                     ['in_progress', 'completed'], ['desc', 'asc']);
             }
