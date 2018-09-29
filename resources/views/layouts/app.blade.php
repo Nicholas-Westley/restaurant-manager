@@ -60,10 +60,12 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    <a class="dropdown-item" href="restaurants">
+                                        {{ __('Restaurants') }}
+                                    </a>
                                 </div>
                             </li>
                         @endguest
