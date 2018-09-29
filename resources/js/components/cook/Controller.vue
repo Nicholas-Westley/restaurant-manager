@@ -11,6 +11,8 @@
                 :selectedOrder="selectedOrder"
                 @acceptOrder="acceptOrder"
                 @deleteOrder="deleteOrder"
+                @markItemInProgress="markItemInProgress"
+                @markItemCompleted="markItemCompleted"
             />
         </div>
     </div>
@@ -41,9 +43,12 @@
             },
             acceptOrder(order) {
                 if(!this.selectedOrder || !this.selectedOrder.id) return;
-                this.selectedOrder.accepted = true;
+                order.accepted = true;
+                this.updateOrder(order);
+            },
+            updateOrder(order) {
                 axios.post(`orders/${order.id}`, { data: order , _method: 'patch'})
-                    .then(response => console.log(response.data))
+                    .then(response => this.orders = response.data)
                     .catch(error => console.error(error));
             },
             deleteOrder(order) {
@@ -52,7 +57,24 @@
                 axios.delete(`orders/${order.id}`)
                     .then(response => this.orders = response.data )
                     .catch(error => console.error(error));
+            },
+            markItemInProgress(item) {
+                if(!item || !item.id) return;
+                item.in_progress = true;
+                this.updateItem(item);
+            },
+            markItemCompleted(item) {
+                if(!item || !item.id) return;
+                item.completed = true;
+                this.updateItem(item);
+            },
+            updateItem(item) {
+                axios.post(`order-items/${item.id}`, { data: item , _method: 'patch'})
+                    .then(response => console.log(response.data))
+                    .catch(error => console.error(error));
             }
+
+
         }
     }
 </script>

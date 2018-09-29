@@ -14,6 +14,8 @@ Route::group(['middleware'=>'api'], function() {
     });
     // ORDERS RESOURCE
     Route::resource('orders', 'OrdersController');
+    // ODER ITEMS RESOURCE
+    Route::resource('order-items', 'OrderItemsController');
 
 });
 

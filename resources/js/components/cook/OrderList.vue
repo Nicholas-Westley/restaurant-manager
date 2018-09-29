@@ -3,7 +3,7 @@
        <div v-for="order in orders">
            <order-list-item
                :order="order"
-               :orderSelected="selectedOrder && selectedOrder.id === order.id"
+               :selectedOrder="selectedOrder"
                @orderSelected="$emit('orderSelected', order)" />
        </div>
    </div>

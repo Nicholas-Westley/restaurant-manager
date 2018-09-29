@@ -58,6 +58,7 @@ class OrdersController extends Controller
             $orderItem->recipe_id = $recipe['id'];
             $orderItem->order_id = $order->id;
             $orderItem->completed = false;
+            $orderItem->in_progress = false;
             $orderItem->save();
             $ingredientIds = $item['ingredientIds'];
             foreach($ingredientIds as $id => $value) {
@@ -85,7 +86,7 @@ class OrdersController extends Controller
         $order->ready = $updatedOrder['ready'];
         $order->served = $updatedOrder['served'];
         $order->save();
-        return response()->json([ 'success' => true ]);
+        return $this->index();
     }
 
     /* Remove the specified resource from storage. */

@@ -1,6 +1,9 @@
 <template>
     <div
-        :style="{'outline': orderSelected ? 'thick solid #00ccff' : 'none'}"
+        :class="{
+            'awaiting-acceptance': !order.accepted,
+            'selected': selectedOrder && selectedOrder.id === order.id
+        }"
         @click="$emit('orderSelected', order)" class="order">
         <h2>order id: {{ order.id }}</h2>
         <div v-for="item in order.order_items">
@@ -13,7 +16,7 @@
 <script>
     export default {
         name: "order",
-        props: ['order', 'orderSelected']
+        props: ['order', 'selectedOrder']
   }
 </script>
 
@@ -21,7 +24,14 @@
     .order {
         background-color: white;
         cursor: pointer;
-        margin: 24px 0;
         padding: 8px;
+        box-shadow:inset 0 0 0 1px #b8c2cc;
+    }
+    .awaiting-acceptance {
+        color: white;
+        background-color: red;
+    }
+    .selected {
+        box-shadow:inset 0 0 0 4px #00ccff;
     }
 </style>
