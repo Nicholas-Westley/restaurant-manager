@@ -4,6 +4,7 @@
             'awaiting-acceptance': !order.accepted,
             'selected': selectedOrder && selectedOrder.id === order.id,
             'in-progress': order.accepted && !order.completed,
+            'ready': order.ready
         }"
         @click="$emit('orderSelected', order)" class="order">
         <h2>order id: {{ order.id }}</h2>
@@ -35,6 +36,10 @@
     .in-progress {
         color: white;
         background-color: orange;
+    }
+    .ready {
+        color: white;
+        background-color: green;
     }
     .selected {
         box-shadow:inset 0 0 0 4px #00ccff;

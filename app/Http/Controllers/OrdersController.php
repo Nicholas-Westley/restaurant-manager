@@ -15,12 +15,7 @@ class OrdersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $orders = Order
-            ::with('orderItems')
-            ->orderBy('id', 'DESC')
-            ->with('orderItems.recipe')
-            ->get();
-        return response()->json($orders);
+        return response()->json(Order::summaries());
     }
 
     /**

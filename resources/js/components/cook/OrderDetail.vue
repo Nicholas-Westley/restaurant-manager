@@ -9,7 +9,7 @@
         />
 
         <order-detail-order-item
-            v-for="item in selectedOrder.order_items"
+            v-for="item in items"
             :key="item.id"
             :item="item"
             :selectedOrder="selectedOrder"
@@ -27,6 +27,13 @@
         components: {
             OrderOperations,
             OrderDetailOrderItem
+        },
+        computed: {
+            items() {
+                console.log(this.selectedOrder.order_items)
+                return _.orderBy(this.selectedOrder.order_items,
+                    ['in_progress', 'completed'], ['desc', 'asc']);
+            }
         }
     }
 </script>

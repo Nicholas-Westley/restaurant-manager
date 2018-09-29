@@ -71,7 +71,7 @@
             },
             updateItem(item) {
                 axios.post(`order-items/${item.id}`, { data: item , _method: 'patch'})
-                    .then(response => console.log(response.data))
+                    .then(response => this.orders = response.data)
                     .catch(error => console.error(error));
             }
 

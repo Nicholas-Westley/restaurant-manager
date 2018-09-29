@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\OrderItem;
+use App\Order;
 
 class OrderItemsController extends Controller {
 
@@ -15,12 +16,12 @@ class OrderItemsController extends Controller {
      */
     public function update(Request $request, $id) {
         $updatedOrderItem = $request->input('data');
-        $orderItem = OrderItem::whereId($id)->first();
-
+        $orderItem = OrderItem::whereId($id)->with('order')->first();
         $orderItem->completed = $updatedOrderItem['completed'];
         $orderItem->in_progress = $updatedOrderItem['in_progress'];
         $orderItem->save();
-        return response()->json([ 'success' => true ]);
+        $orderItem->order->checkReady();
+        return response()->json(Order::summaries());
     }
 
     /**

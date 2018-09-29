@@ -49,10 +49,9 @@
     .order-item {
         border-top: 1px solid #b8c2cc;
         padding: 8px;
-
     }
     .item-completed {
-        opacity: 0.3;
+        opacity: 0.5;
     }
     .item-in-progress {
         background-color: green;
