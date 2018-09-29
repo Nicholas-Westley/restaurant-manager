@@ -3,6 +3,7 @@
         <div class="cook-column order-list">
             <order-list
                 :orders="orders"
+                :selectedOrder="selectedOrder"
                 @orderSelected="orderSelected"/>
         </div>
         <div class="cook-column order-detail">
@@ -34,6 +35,7 @@
         methods: {
             orderSelected(order) {
                 if(this.selectedOrder && this.selectedOrder.id === order.id) return this.selectedOrder = null;
+                this.selectedOrder = order;
                 axios.get(`orders/${order.id}`)
                     .then(response => this.selectedOrder = response.data);
             },
@@ -48,11 +50,7 @@
                 if(!order || !order.id) return;
                 if(order.id === this.selectedOrder.id) this.selectedOrder = null;
                 axios.delete(`orders/${order.id}`)
-                    .then(response => {
-                        console.log("@!!!!!!")
-                        console.log(response.data)
-                        this.orders = response.data
-                    })
+                    .then(response => this.orders = response.data )
                     .catch(error => console.error(error));
             }
         }

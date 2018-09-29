@@ -3,6 +3,7 @@
        <div v-for="order in orders">
            <order-list-item
                :order="order"
+               :orderSelected="selectedOrder && selectedOrder.id === order.id"
                @orderSelected="$emit('orderSelected', order)" />
        </div>
    </div>
@@ -11,7 +12,7 @@
 <script>
     import OrderListItem from './OrderListItem';
     export default {
-        props: ['orders'],
+        props: ['orders', 'selectedOrder'],
         components: { OrderListItem }
     }
 
@@ -19,7 +20,6 @@
 
 <style scoped>
     .order-list {
-        background-color: white;
         flex: 0.4;
         overflow-y: auto;
     }
