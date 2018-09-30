@@ -7,14 +7,18 @@ use App\Restaurant;
 use App\User;
 
 
-class RestaurantsController extends Controller
-{
+class RestaurantsController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth', ['except' => []]);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
+
         $user = User::find(auth()->user()->id);
         return view('restaurants')->with('restaurants', $user->restaurants);
     }

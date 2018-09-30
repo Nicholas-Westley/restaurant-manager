@@ -4,9 +4,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/webapp', function() {
-   return view('webapp');
-});
+Route::get('/webapp', 'WebAppController@show');
 
 Route::resource('restaurants', 'RestaurantsController');
 
