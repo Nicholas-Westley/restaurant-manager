@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="vue"></div>
+    <a class="btn btn=secondary" href="webapp">Web App</a>
 @endsection
