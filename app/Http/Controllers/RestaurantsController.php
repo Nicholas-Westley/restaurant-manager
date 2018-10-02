@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Restaurant;
 use App\User;
+use Log;
 
 
 class RestaurantsController extends Controller {
@@ -18,9 +19,8 @@ class RestaurantsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-
-        $user = User::find(auth()->user()->id);
-        return view('restaurants')->with('restaurants', $user->restaurants);
+        $user = User::with('restaurants')->with('restaurants.users')->find(auth()->user()->id);
+        return view('restaurants')->with('user', $user);
     }
 
     /**
@@ -85,8 +85,11 @@ class RestaurantsController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        $restaurant = Restaurant::find($id);
+        if($restaurant) {
+            $restaurant->delete();
+        }
+        return $this->index();
     }
 }
