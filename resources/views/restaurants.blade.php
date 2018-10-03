@@ -12,8 +12,10 @@
                 <div class="restaurant">
                     <h4>
                         {{ $restaurant['name'] }}
-                        <a class="btn btn-secondary btn-sm" href="add-user/{{$restaurant['id']}}">
-                            Add User
+                        <a
+                            class="btn btn-secondary btn-sm"
+                            href="restaurants/{{ $restaurant['id'] }}/invitations/create">
+                            Invite Employee
                         </a>
 
                         {!!Form::open([

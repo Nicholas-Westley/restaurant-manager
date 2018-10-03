@@ -6,7 +6,10 @@ Route::get('/', function () {
 
 Route::get('/webapp', 'WebAppController@show');
 
-Route::resource('restaurants', 'RestaurantsController');
+Route::group(['prefix' => 'restaurants'], function(){
+    Route::resource('{restaurant_id}/invitations', 'InvitationsController');
+    Route::resource('', 'RestaurantsController');
+});
 
 Auth::routes();
 
