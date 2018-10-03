@@ -66,6 +66,12 @@
                                     <a class="dropdown-item" href="restaurants">
                                         {{ __('Restaurants') }}
                                     </a>
+                                    <a class="dropdown-item" href="/">
+                                        {{ __('Home') }}
+                                    </a>
+                                    <a class="dropdown-item" href="webapp">
+                                        {{ __('Web App') }}
+                                    </a>
                                 </div>
                             </li>
                         @endguest
