@@ -3,35 +3,53 @@
 @section('content')
 
     <div class="admin-container">
-        <a class="btn btn-primary" href="/restaurants/create">
-            Create New Restaurant
-        </a>
+        <div class="invitations">
+            @if(isset($user->invitations) && count($user->invitations) > 0)
+                <h2>Invitations</h2>
+                @foreach($user->invitations as $invitation )
+                    @if(!$invitation['accepted'])
+                        <div class="card">
+                            <div class="card-body">
+                                {{ $invitation['restaurant']['name'] }}
+                                <div class="float-right">
+                                    @include('inc.dashboard.accept-invitation')
+                                    @include('inc.dashboard.delete-invitation')
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            @endif
+        </div>
+
         <div class="restaurants">
-            <h2>Restaurants</h2>
+            <h2>
+                Restaurants
+                <a class="btn btn-primary btn-sm" href="/restaurants/create">
+                    Create New Restaurant
+                </a>
+            </h2>
+
             @foreach($user->restaurants as $restaurant)
-                <div class="restaurant">
-                    <h4>
-                        {{ $restaurant['name'] }}
-                        <a
-                            class="btn btn-secondary btn-sm"
-                            href="restaurants/{{ $restaurant['id'] }}/invitations/create">
-                            Invite Employee
-                        </a>
-
-                        {!!Form::open([
-                            'action' => ['RestaurantsController@destroy', $restaurant->id],
-                            'onsubmit' => 'return confirm("Are you sure")',
-                            'method' => 'POST',
-                            'style' => 'display: inline-block;']) !!}
-                            {{ Form::hidden('_method', 'DELETE') }}
-                            {{ Form::bsSubmit('Delete', ['class'=>'btn btn-danger btn-sm']) }}
-                        {{ Form::close() }}
-                    </h4>
-
-
-                    @foreach($restaurant['users'] as $u)
-                        {{ $u['username'] }}
-                    @endforeach
+                <div class="restaurant card">
+                    <div class="card-body">
+                        <h4>
+                            {{ $restaurant['name'] }}
+                            <div class="float-right">
+                                <a
+                                    class="btn btn-secondary btn-sm"
+                                    href="restaurants/{{ $restaurant['id'] }}/invitations/create">
+                                    Invite Employee
+                                </a>
+                                @include('inc.dashboard.delete-restaurant')
+                            </div>
+                        </h4>
+                        @foreach($restaurant['users'] as $u)
+                            <div>
+                                {{ $u['username'] }}
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             @endforeach
         </div>

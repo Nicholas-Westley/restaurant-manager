@@ -16,4 +16,10 @@ class User extends Authenticatable
     public function restaurants() {
         return $this->belongsToMany('App\Restaurant');
     }
+
+    /* RELATIONSHIP */
+    public function invitations() {
+        return $this->hasMany('App\Invitation', 'invitee_id');
+    }
+
 }

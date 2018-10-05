@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeOrderIdToOrderItemId extends Migration
+class InvitationsAddAcceptedColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,8 @@ class ChangeOrderIdToOrderItemId extends Migration
      * @return void
      */
     public function up() {
-        Schema::table('order_ingredient_maps', function (Blueprint $table) {
-            $table->renameColumn('order_id', 'order_item_id');
+        Schema::table('invitations', function (Blueprint $table) {
+            $table->boolean('accepted');
         });
     }
 
@@ -24,8 +24,6 @@ class ChangeOrderIdToOrderItemId extends Migration
      */
     public function down()
     {
-        Schema::table('order_items', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

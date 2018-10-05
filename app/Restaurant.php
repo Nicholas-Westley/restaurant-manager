@@ -9,4 +9,9 @@ class Restaurant extends Model {
     public function users() {
         return $this->belongsToMany('App\User');
     }
+
+    /* RELATIONSHIP */
+    public function invitations() {
+        return $this->belongsToMany('App\Invitation');
+    }
 }

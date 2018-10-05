@@ -2,101 +2,75 @@
 
 namespace App\Http\Controllers;
 
+use App\Restaurant;
 use Illuminate\Http\Request;
 use App\User;
 use App\Invitation;
 use Log;
 
 
-class InvitationsController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {}
+class InvitationsController extends Controller {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create($restaurant_id) {
-        $user = User::with('restaurants')->with('restaurants.users')->find(auth()->user()->id);
-        return view('invite-user-to-restaurant')->with('restaurant_id', $restaurant_id);
+        return view('invite-user-to-restaurant')
+            ->with('restaurant_id', $restaurant_id);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $restaurant_id) {
         $this->validate($request, [
             'user_name' => 'required'
         ]);
-
         $username = $request->input('user_name');
-        $user = User::whereUsername($username)->first();
-        if($user) {
+        $invitee = User::whereUsername($username)->first();
+        if($invitee) {
             $invitation = Invitation::whereRestaurantId($restaurant_id)
-                ->whereUserId($user['id'])
+                ->whereInviteeId($invitee['id'])
                 ->first();
             if($invitation) {
                 return redirect('restaurants')->with('message', 'Invite already sent');
             }
             $invitation = new Invitation();
             $invitation->restaurant_id = $restaurant_id;
-            $invitation->user_id = $user['id'];
+            $invitation->invitee_id = $invitee['id'];
+            $invitation->inviter_id = auth()->user()->id;
+            $invitation->accepted = false;
+            $invitation->save();
         }
-
-        return redirect('restaurants')->with('success', 'Invite sent if user exists');
+        return redirect('restaurants')
+            ->with('success', 'Invite sent if user exists');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function accept($restaurant_id, $invitation_id) {
+        $invitation = Invitation::find($invitation_id);
+        if($invitation) {
+            $invitation->accepted = true;
+            $invitation->save();
+
+            $alreadyMember = Restaurant::find($restaurant_id)
+                ->with('users')
+                ->whereHas('users', function($q) {
+                    $q->where('users.id', '=', auth()->user()->id);
+                })
+                ->first();
+            if ($alreadyMember) {
+                return redirect('restaurants')->with('message', 'You are already a member of this restaurant');
+            }
+            $restaurant = Restaurant::find($restaurant_id);
+            $restaurant->users()->attach(auth()->user());
+            return redirect('restaurants')->with('message', 'Added to Restaurant');
+        }
+        return redirect('restaurants');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+    public function show($id) {}
+    public function edit($id) {}
+    public function update(Request $request, $id) {}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        $invitation = Invitation::whereId($id);
+        if($invitation) {
+            $invitation->delete();
+        }
+        return redirect('restaurants');
     }
 }

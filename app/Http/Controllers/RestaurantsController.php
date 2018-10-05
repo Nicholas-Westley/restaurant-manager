@@ -19,7 +19,11 @@ class RestaurantsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $user = User::with('restaurants')->with('restaurants.users')->find(auth()->user()->id);
+        $user = User::with('restaurants')
+            ->with('restaurants.users')
+            ->with('invitations')
+            ->with('invitations.restaurant')
+            ->find(auth()->user()->id);
         return view('restaurants')->with('user', $user);
     }
 
@@ -39,6 +43,7 @@ class RestaurantsController extends Controller {
     public function store(Request $request) {
         $restaurant = new Restaurant();
         $restaurant->name = $request->input('restaurant_name');
+        $restaurant->owner_id = auth()->user()->id;
         $restaurant->save();
         $user = User::find(auth()->user()->id);
         $restaurant->users()->attach($user);
@@ -51,10 +56,7 @@ class RestaurantsController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    public function show($id) { }
 
     /**
      * Show the form for editing the specified resource.

@@ -1,7 +1,7 @@
 .admin-container {
     max-width: 1200px;
     margin: auto;
-    padding: 16px 0;
+    padding: 16px 32px;
 }
 .messages-container {
     max-width: 1200px;
@@ -10,9 +10,9 @@
 }
 
 .restaurants {
-    padding: 16px 8px;
+    padding: 16px 0;
     .restaurant {
-        padding: 8px;
+        padding: 8px 0;
     }
 }
 
