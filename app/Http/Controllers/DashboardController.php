@@ -8,7 +8,7 @@ use App\User;
 use Log;
 
 
-class RestaurantsController extends Controller {
+class DashboardController extends Controller {
 
     public function __construct() {
         $this->middleware('auth', ['except' => []]);
@@ -24,7 +24,7 @@ class RestaurantsController extends Controller {
             ->with('invitations')
             ->with('invitations.restaurant')
             ->find(auth()->user()->id);
-        return view('restaurants')->with('user', $user);
+        return view('dashboard')->with('user', $user);
     }
 
     /**
@@ -47,7 +47,7 @@ class RestaurantsController extends Controller {
         $restaurant->save();
         $user = User::find(auth()->user()->id);
         $restaurant->users()->attach($user);
-        return redirect('/restaurants')->with('$restaurants', $user->restaurants);
+        return redirect('/dashboard')->with('$restaurants', $user->restaurants);
     }
 
     /**

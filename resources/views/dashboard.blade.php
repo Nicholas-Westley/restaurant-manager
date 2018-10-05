@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="admin-container">
         <div class="invitations">
             @if(isset($user->invitations) && count($user->invitations) > 0)
@@ -36,6 +35,11 @@
                         <h4>
                             {{ $restaurant['name'] }}
                             <div class="float-right">
+                                <a
+                                    class="btn btn-success btn-sm"
+                                    href="webapp/{{  $restaurant['id'] }}">
+                                    Open Webapp
+                                </a>
                                 <a
                                     class="btn btn-secondary btn-sm"
                                     href="restaurants/{{ $restaurant['id'] }}/invitations/create">

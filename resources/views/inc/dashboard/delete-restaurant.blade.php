@@ -1,5 +1,5 @@
 {!!Form::open([
-    'action' => ['RestaurantsController@destroy', $restaurant->id],
+    'action' => ['DashboardController@destroy', $restaurant->id],
     'onsubmit' => 'return confirm("Are you sure")',
     'method' => 'POST',
     'style' => 'display: inline-block;']) !!}

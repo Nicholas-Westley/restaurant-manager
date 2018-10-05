@@ -1,15 +1,15 @@
 <?php
 
 Route::get('/', function () {
-    return view('home');
+    return redirect('dashboard');
 });
 
-Route::get('/webapp', 'WebAppController@show');
+Route::get('/webapp/{restaurant_id}', 'WebAppController@show');
 
-Route::group(['prefix' => 'restaurants'], function(){
+Route::group(['prefix' => 'dashboard'], function(){
     Route::post('{restaurant_id}/invitations/{invitation_id}/accept', 'InvitationsController@accept');
     Route::resource('{restaurant_id}/invitations', 'InvitationsController');
-    Route::resource('', 'RestaurantsController');
+    Route::resource('', 'DashboardController');
 });
 
 Auth::routes();
