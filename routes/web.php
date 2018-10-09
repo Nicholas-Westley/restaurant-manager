@@ -12,5 +12,9 @@ Route::group(['prefix' => 'dashboard'], function(){
     Route::resource('', 'DashboardController');
 });
 
+
+Route::resource('restaurants/{restaurant_id}/recipes', 'RecipesController');
+Route::resource('restaurants', 'RestaurantsController');
+
 Auth::routes();
 

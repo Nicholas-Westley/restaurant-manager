@@ -33,20 +33,10 @@
                 <div class="restaurant card">
                     <div class="card-body">
                         <h4>
-                            {{ $restaurant['name'] }}
-                            <div class="float-right">
-                                <a
-                                    class="btn btn-success btn-sm"
-                                    href="webapp/{{  $restaurant['id'] }}">
-                                    Open Webapp
-                                </a>
-                                <a
-                                    class="btn btn-secondary btn-sm"
-                                    href="restaurants/{{ $restaurant['id'] }}/invitations/create">
-                                    Invite Employee
-                                </a>
-                                @include('inc.dashboard.delete-restaurant')
-                            </div>
+                            <a href="restaurants/{{ $restaurant['id'] }}">
+                                {{ $restaurant['name'] }}
+                            </a>
+                            @include('inc.restaurant-options')
                         </h4>
                         @foreach($restaurant['users'] as $u)
                             <div>

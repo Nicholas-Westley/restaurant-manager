@@ -32,10 +32,15 @@
             }
         },
         created() {},
-        mounted() {},
+        mounted() {
+            console.warn("*********")
+            console.log(this.$router);
+            console.log(this);
+        },
         methods: {
             viewSwitched(viewType) {
                 this.currentView = viewType;
+                console.log(this.restaurant_id);
             }
         }
     };

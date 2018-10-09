@@ -5,7 +5,7 @@
                 class="recipe-square" v-for="recipe in recipes"
                 @click="$emit('recipeSelected', recipe)"
                 :style="{
-                    'background-image': 'linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url(assets/images/' + recipe.image + ')',
+                    'background-image': 'linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url(/assets/images/' + recipe.image + ')',
                     'outline': selectedRecipe && selectedRecipe.id === recipe.id ? 'thick solid #00ccff' : 'none',
                 }">
                 <h4>{{ recipe.name }}</h4>
