@@ -10,7 +10,7 @@
             Recipes
             <a
                 class="btn btn-primary btn-sm"
-                href="/restaurant/{{ $restaurant['id'] }}/recipes/create">
+                href="/restaurants/{{ $restaurant['id'] }}/recipes/create">
                 Create New Recipe
             </a>
         </h3>

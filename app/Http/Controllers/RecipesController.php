@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Recipe;
+use Log;
 
-class RecipesController extends Controller
-{
+class RecipesController extends Controller {
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +20,8 @@ class RecipesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        //
+    public function create($restaurant_id) {
+        return view('create-recipe')->with('restaurant_id', $restaurant_id);
     }
 
     /**
@@ -29,9 +30,27 @@ class RecipesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request, $restaurant_id) {
+        $this->validate($request, [
+            'recipe_name' => 'required'
+        ]);
+        $recipe = new Recipe();
+        $recipe->name = $request->input('recipe_name');
+        $recipe->description = $request->input('recipe_description');
+        $recipe->restaurant_id = $restaurant_id;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('recipe_image');
+            $filenameWithExt = $file->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $now = time();
+            $filenameToStore = "{$filename}_{$now}.{$extension}";
+            $path = $file->storeAs('public/images', $filenameToStore);
+            $recipe->image = $path;
+        }
+        $recipe->save();
+        return redirect("restaurants/{$restaurant_id}/recipes/{$recipe['id']}");
     }
 
     /**
@@ -40,9 +59,9 @@ class RecipesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(Request $request, $restaurant_id, $recipe_id) {
+        $recipe = Recipe::whereId($recipe_id)->first();
+        return view('recipe')->with('recipe', $recipe);
     }
 
     /**
