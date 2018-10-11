@@ -18,8 +18,9 @@ class RecipesController extends Controller {
         return Recipe::whereRestaurantId($restaurant_id)->get();
     }
 
-    public function show($id) {
-        return Recipe::whereId($id)->with('ingredients')->first();
+    public function show($restaurant_id, $recipe_id) {
+        return Recipe::whereId($recipe_id)
+            ->with('ingredients')->first();
     }
 
 }

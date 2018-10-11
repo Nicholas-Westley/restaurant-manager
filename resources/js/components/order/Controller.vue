@@ -43,7 +43,8 @@
         methods: {
             recipeSelected(recipe) {
                 if(this.selectedRecipe && this.selectedRecipe.id === recipe.id) return this.selectedRecipe = null;
-                axios.get(`recipe/${recipe.id}`)
+                const url = `restaurants/${window.restaurant}/recipes/${recipe.id}`;
+                axios.get(url)
                     .then(response => this.selectedRecipe = response.data);
             },
             itemAdded(itemAdded) {
