@@ -63,7 +63,7 @@
             },
         },
         mounted() {
-            axios.get('recipes')
+            axios.get(`restaurants/${window.restaurant}/recipes`)
                 .then(response => (this.recipes = response.data));
         }
     }

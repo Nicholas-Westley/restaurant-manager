@@ -10,7 +10,8 @@ class WebAppController extends Controller {
         $this->middleware('auth', ['except' => []]);
     }
 
-    public function show() {
-        return view('webapp');
+    public function show($restaurant_id) {
+        return view('webapp')
+            ->with('restaurant_id', $restaurant_id);
     }
 }

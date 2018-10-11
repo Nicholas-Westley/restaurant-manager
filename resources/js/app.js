@@ -8,6 +8,12 @@ import Main from './components/Main';
 Vue.config.productionTip = false;
 axios.defaults.baseURL = `http://food-order-tracker.development/api/`;
 
+const token= document.getElementsByName('csrf-token')[0];
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN' : token.content
+};
+
 
 // Vue.use(VueRouter);
 
