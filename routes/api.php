@@ -4,19 +4,13 @@ use Illuminate\Http\Request;
 use App\Recipe;
 
 Route::group(['middleware'=>'api'], function() {
-    //FETCH ALL RECIPES
-    Route::get('recipes', function () {
-        return Recipe::all();
-    });
-    // FETCH RECIPE BY ID
-    Route::get('recipe/{recipeId}', function($recipeId) {
-        return Recipe::whereId($recipeId)->with('ingredients')->first();
-    });
     // ORDERS RESOURCE
-    Route::resource('orders', 'OrdersController');
+    Route::resource('orders', 'Api\OrdersController');
     // ORDER-ITEMS RESOURCE
-    Route::resource('order-items', 'OrderItemsController');
-
+    Route::resource('order-items', 'Api\OrderItemsController');
+    Route::resource('recipes', 'Api\RecipesController')->only([
+        'index', 'show'
+    ]);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
