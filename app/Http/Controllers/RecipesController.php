@@ -36,6 +36,7 @@ class RecipesController extends Controller {
         $recipe->name = $request->input('recipe_name');
         $recipe->description = $request->input('recipe_description');
         $recipe->restaurant_id = $restaurant_id;
+        $recipe->enabled = false;
 
         if ($request->hasFile('image')) {
             $file = $request->file('recipe_image');
