@@ -1,7 +1,7 @@
 <div class="float-right">
     <a
         class="btn btn-success btn-sm"
-        href="webapp/{{  $restaurant['id'] }}">
+        href="/webapp/{{  $restaurant['id'] }}">
         Open Webapp
     </a>
     <a
