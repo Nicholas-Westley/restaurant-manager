@@ -5,9 +5,11 @@ use App\Recipe;
 
 Route::group(['middleware'=>'api'], function() {
     // ORDERS RESOURCE
-    Route::resource('orders', 'Api\OrdersController');
+    Route::resource('orders', 'Api\OrdersController')
+        ->only(['index', 'show', 'store', 'update', 'destroy']);
     // ORDER-ITEMS RESOURCE
-    Route::resource('order-items', 'Api\OrderItemsController');
+    Route::resource('order-items', 'Api\OrderItemsController')
+        ->only(['update']);
     Route::resource('restaurants/{restaurant_id}/recipes', 'Api\RecipesController')
         ->only(['index', 'show']);
 });

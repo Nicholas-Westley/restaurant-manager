@@ -102,9 +102,4 @@ class OrdersController extends Controller
         return $this->index();
     }
 
-    /* Show the form for editing the specified resource. */
-    public function edit($id) { }
-    /* Show the form for creating a new resource. */
-    public function create(){ }
-
 }

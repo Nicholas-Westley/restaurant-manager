@@ -8,7 +8,6 @@ use App\User;
 use App\Invitation;
 use Log;
 
-
 class InvitationsController extends Controller {
 
     public function create($restaurant_id) {
@@ -61,10 +60,6 @@ class InvitationsController extends Controller {
         }
         return redirect('restaurants');
     }
-
-    public function show($id) {}
-    public function edit($id) {}
-    public function update(Request $request, $id) {}
 
     public function destroy($id) {
         $invitation = Invitation::whereId($id);
