@@ -8,12 +8,6 @@ use Log;
 
 class RecipesController extends Controller {
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Request $request, $restaurant_id, $recipe_id) {
         $recipe = Recipe::whereId($recipe_id)->first();
         return view('recipe')->with('recipe', $recipe);
@@ -63,9 +57,8 @@ class RecipesController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+
     }
 
     /**
@@ -75,9 +68,13 @@ class RecipesController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $restaurant_id, $recipe_id) {
+        $recipe = Recipe::whereId($recipe_id)->first();
+        if($recipe) {
+            $recipe->enabled = $request->input('enabled');
+            $recipe->save();
+        }
+        return redirect("restaurants/{$restaurant_id}");
     }
 
     /**
@@ -91,7 +88,6 @@ class RecipesController extends Controller {
         if($recipe) {
             $recipe->delete();
         }
-        Log::debug('IDIDID: ' . $restaurant_id);
         return redirect("restaurants/{$restaurant_id}");
     }
 }

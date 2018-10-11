@@ -15,7 +15,9 @@ class RecipesController extends Controller {
     }
 
     public function index($restaurant_id) {
-        return Recipe::whereRestaurantId($restaurant_id)->get();
+        return Recipe::whereRestaurantId($restaurant_id)
+            ->whereEnabled(true)
+            ->get();
     }
 
     public function show($restaurant_id, $recipe_id) {
