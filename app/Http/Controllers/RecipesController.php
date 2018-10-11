@@ -49,7 +49,7 @@ class RecipesController extends Controller {
             $recipe->image = $path;
         }
         $recipe->save();
-        return redirect("restaurants/{$restaurant_id}/recipes/{$recipe['id']}");
+        return redirect("restaurants/{$restaurant_id}");
     }
 
     /**

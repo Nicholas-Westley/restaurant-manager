@@ -13,11 +13,13 @@ Route::group(['prefix' => 'dashboard'], function(){
     Route::get('', 'DashboardController@index');
 });
 
-
 Route::resource('restaurants/{restaurant_id}/recipes', 'RecipesController')
     ->only(['show', 'create', 'store', 'update', 'destroy']);
 Route::resource('restaurants', 'RestaurantsController')
     ->only(['show', 'create', 'store', 'destroy']);
+Route::resource('restaurants/{restaurant_id}/recipes/{recipe_id}/ingredients',
+    'IngredientsController')
+    ->only(['create', 'store', 'destroy']);
 
 Auth::routes();
 

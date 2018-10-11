@@ -21,10 +21,11 @@ class RestaurantsController extends Controller {
     */
     public function show($id) {
         $restaurant = Restaurant::whereId($id)
-          ->with('recipes')
-          ->with('recipes.ingredients')
-          ->first();
-        return view('restaurant')->with('restaurant', $restaurant);
+            ->with('recipes')
+            ->with('recipes.ingredients')
+            ->first();
+        return view('restaurant')
+            ->with('restaurant', $restaurant);
     }
 
     /**

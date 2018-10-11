@@ -18,24 +18,29 @@
         @foreach($restaurant['recipes'] as $recipe)
             <div class="card">
                 <div class="card-body">
-                    <h4>
+                    <h3>
                         {{ $recipe['name'] }}
                         @include('inc.recipe-options')
-                    </h4>
-                    <h5>{{ $recipe['description'] }}</h5>
+                    </h3>
+                    <h4>{{ $recipe['description'] }}</h4>
                     @foreach($recipe['ingredients'] as $ingredient)
                         <div>
-                            <label>
+                            <label class="ingredient-label">
                                 <input
                                     type="checkbox"
                                     disabled
                                     {{ $ingredient['selected_by_default'] ? 'checked' : '' }}
                                 />
                                 {{ $ingredient['name'] }}
+                                @include('inc.form-components.delete-ingredient')
                             </label>
-
                         </div>
                     @endforeach
+                    <a
+                        class="btn btn-success btn-sm"
+                        href="/restaurants/{{$restaurant['id']}}/recipes/{{$recipe['id']}}/ingredients/create">
+                        Add
+                    </a>
                 </div>
             </div>
         @endforeach
