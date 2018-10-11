@@ -11,8 +11,8 @@
                             <div class="card-body">
                                 {{ $invitation['restaurant']['name'] }}
                                 <div class="float-right">
-                                    @include('inc.dashboard.accept-invitation')
-                                    @include('inc.dashboard.delete-invitation')
+                                    @include('inc.form-components.accept-invitation')
+                                    @include('inc.form-components.delete-invitation')
                                 </div>
                             </div>
                         </div>

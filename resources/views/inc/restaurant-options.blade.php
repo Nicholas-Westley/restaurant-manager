@@ -9,5 +9,5 @@
         href="restaurants/{{ $restaurant['id'] }}/invitations/create">
         Invite Employee
     </a>
-    @include('inc.dashboard.delete-restaurant')
+    @include('inc.form-components.delete-restaurant')
 </div>
