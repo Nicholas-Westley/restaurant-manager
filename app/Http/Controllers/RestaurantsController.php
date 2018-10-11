@@ -9,17 +9,17 @@ use Log;
 class RestaurantsController extends Controller {
 
     public function __construct() {
-      $this->middleware('auth', ['except' => []]);
+        $this->middleware('auth', ['except' => []]);
     }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
+    /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function show($id) {
-        $restaurant = Restaurant::find($id)
+        $restaurant = Restaurant::whereId($id)
           ->with('recipes')
           ->with('recipes.ingredients')
           ->first();
@@ -32,7 +32,7 @@ class RestaurantsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-
+        return view('create-restaurant');
     }
 
     /**
