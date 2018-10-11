@@ -18,7 +18,10 @@
         @foreach($restaurant['recipes'] as $recipe)
             <div class="card">
                 <div class="card-body">
-                    <h4>{{ $recipe['name'] }}</h4>
+                    <h4>
+                        {{ $recipe['name'] }}
+                        @include('inc.recipe-options')
+                    </h4>
                     <h5>{{ $recipe['description'] }}</h5>
                     @foreach($recipe['ingredients'] as $ingredient)
                         <div>

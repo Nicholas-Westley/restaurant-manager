@@ -7,12 +7,16 @@ use App\Recipe;
 use Log;
 
 class RecipesController extends Controller {
+
     /**
-     * Display a listing of the resource.
+     * Display the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function show(Request $request, $restaurant_id, $recipe_id) {
+        $recipe = Recipe::whereId($recipe_id)->first();
+        return view('recipe')->with('recipe', $recipe);
     }
 
     /**
@@ -54,17 +58,6 @@ class RecipesController extends Controller {
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $restaurant_id, $recipe_id) {
-        $recipe = Recipe::whereId($recipe_id)->first();
-        return view('recipe')->with('recipe', $recipe);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -93,8 +86,12 @@ class RecipesController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($restaurant_id, $recipe_id) {
+        $recipe = Recipe::whereId($recipe_id);
+        if($recipe) {
+            $recipe->delete();
+        }
+        Log::debug('IDIDID: ' . $restaurant_id);
+        return redirect("restaurants/{$restaurant_id}");
     }
 }

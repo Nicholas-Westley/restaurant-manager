@@ -23,7 +23,6 @@ class RestaurantsController extends Controller {
           ->with('recipes')
           ->with('recipes.ingredients')
           ->first();
-        Log::debug($restaurant);
         return view('restaurant')->with('restaurant', $restaurant);
     }
 
@@ -75,8 +74,7 @@ class RestaurantsController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+
     }
 }
