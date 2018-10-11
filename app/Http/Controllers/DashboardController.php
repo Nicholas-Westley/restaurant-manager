@@ -81,17 +81,4 @@ class DashboardController extends Controller {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        $restaurant = Restaurant::find($id);
-        if($restaurant) {
-            $restaurant->delete();
-        }
-        return $this->index();
-    }
 }

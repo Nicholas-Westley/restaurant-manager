@@ -74,7 +74,11 @@ class RestaurantsController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-
+    public function destroy($restaurant_id) {
+        $restaurant = Restaurant::whereId($restaurant_id);
+        if($restaurant) {
+            $restaurant->delete();
+        }
+        return redirect("dashboard");
     }
 }
