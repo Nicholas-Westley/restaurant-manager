@@ -1,33 +1,35 @@
 <template>
     <div class="order-being-created">
-        <div v-if="!currentOrder.length">
-            No items in Order
-        </div>
-        <div v-else>
-            <!-- SUBMIT -->
-            <submit-order
-                @submitOrder="$emit('submitOrder')"
-                :submittable="!selectedRecipe"/>
-            <!-- LIST CURRENT -->
-            <div class="order-item" v-for="(item, index) in currentOrder">
-                <h4>
-                    {{index+1 }}: {{ item.recipe.name }}
-                    <div
-                        class="float-right"
-                        @click="$emit('itemRemoved', index)"
-                        style="cursor: pointer"
-                        title="Remove Item"
-                    >
-                        x
-                    </div>
-                </h4>
-                <h5>{{ item.recipe.description }}</h5>
-                <div class="ingredients-list">
-                    <div v-for="ingredient in item.recipe.ingredients">
-                        <span :class="item.ingredientIds[ingredient.id] ? 'hasIngredient' : 'notIngredient'">
+
+        <!-- SUBMIT -->
+        <v-btn
+            large
+            color="green darken-1"
+            @click="$emit('submitOrder')"
+        >
+            Order
+        </v-btn>
+        <!-- LIST CURRENT -->
+        <div class="order-item" v-for="(item, index) in currentOrder">
+            <h4>
+                <v-label>{{index+1 }}: {{ item.name }}</v-label>
+                <div
+                    class="float-right"
+                    @click="$emit('itemRemoved', index)"
+                    style="cursor: pointer"
+                    title="Remove Item"
+                >
+                    x
+                </div>
+            </h4>
+            <!--<h5>{{ item.description }}</h5>-->
+            <div class="ingredients-list">
+                <div v-for="ingredient in item.ingredients">
+                    <span :class="ingredient.selected ? 'hasIngredient' : 'notIngredient'">
+                        <v-label>
                             {{ ingredient.name }}
-                        </span>
-                    </div>
+                        </v-label>
+                    </span>
                 </div>
             </div>
         </div>
@@ -35,11 +37,9 @@
 </template>
 
 <script>
-import SubmitOrder from "./SubmitOrder";
 export default {
     name: "OrderBeingCreated",
     props: ['submittable', 'currentOrder', 'selectedRecipe'],
-    components: { SubmitOrder }
 }
 </script>
 
@@ -57,6 +57,7 @@ export default {
         font-weight: bold;
     }
     .notIngredient {
-        color: #ccc;
+        color: #ddd;
+        text-decoration: line-through;
     }
 </style>

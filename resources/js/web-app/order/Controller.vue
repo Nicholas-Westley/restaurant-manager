@@ -1,12 +1,24 @@
 <template>
-    <div class="order-pane">
-        <!-- RECIPE LIST -->
-        <recipe-list
-            v-if="!selectedRecipe"
-            :recipes="recipes"
-            class="order-column recipe-list"
-            @recipeSelected="recipeSelected"
-        />
+    <div class="order-pane" data-app>
+        <div style="display: flex">
+            <!-- RECIPE LIST -->
+            <recipe-list
+                :recipes="items"
+                class="order-column recipe-list"
+                @recipeSelected="recipeSelected"
+            />
+
+            <!-- ORDER IN PROCESS -->
+            <order-being-created
+                    v-if="currentOrder.length"
+                    class="order-column order-being-created"
+                    :currentOrder="currentOrder"
+                    :submittable="selectedRecipe !== null"
+                    :selectedRecipe="selectedRecipe"
+                    @itemRemoved="itemRemoved"
+                    @submitOrder="submitOrder"
+            />
+        </div>
 
         <!-- REFINE ITEM TO ADD TO ORDER -->
         <add-item-to-order
@@ -16,16 +28,6 @@
             @itemAdded="itemAdded"
         />
 
-        <!-- ORDER IN PROCESS -->
-        <order-being-created
-            v-if="selectedRecipe || currentOrder.length"
-            class="order-column order-being-created"
-            :currentOrder="currentOrder"
-            :submittable="selectedRecipe !== null"
-            :selectedRecipe="selectedRecipe"
-            @itemRemoved="itemRemoved"
-            @submitOrder="submitOrder"
-        />
     </div>
 </template>
 
@@ -39,18 +41,24 @@
             return {
                 selectedRecipe: null,
                 recipes: [],
-                currentOrder: []
+                currentOrder: [],
+                items: [],
+            }
+        },
+        watch: {
+            recipes() {
+                this.getItems();
             }
         },
         methods: {
             recipeSelected(recipe) {
-                if(this.selectedRecipe && this.selectedRecipe.id === recipe.id) return this.selectedRecipe = null;
-                const url = `restaurants/${window.restaurant}/recipes/${recipe.id}`;
-                axios.get(url)
-                    .then(response => this.selectedRecipe = response.data);
+                this.selectedRecipe = { ...recipe };
             },
-            itemAdded(itemAdded) {
-                if(itemAdded) this.currentOrder.push(itemAdded);
+            itemAdded() {
+                console.log(this.currentOrder);
+                console.log(this.selectedRecipe)
+                console.log(JSON.stringify(this.selectedRecipe))
+                if(this.selectedRecipe) this.currentOrder.push({...this.selectedRecipe});
                 this.selectedRecipe = null;
             },
             itemRemoved(index) {
@@ -64,6 +72,14 @@
                     });
                 this.currentOrder = [];
             },
+            getItems() {
+                this.items = JSON.parse(JSON.stringify(this.recipes));
+                this.items.forEach(item => {
+                    item.ingredients.forEach(ingredient => {
+                        ingredient.selected = ingredient.selected_by_default
+                    })
+                });
+            }
         },
         mounted() {
             axios.get(`restaurants/${window.restaurant}/recipes`)
@@ -73,5 +89,12 @@
 </script>
 
 <style scoped>
+    .recipe-list {
+        flex: 3;
+    }
+    .order-being-created {
+        flex: 1;
+    }
+
 
 </style>

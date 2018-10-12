@@ -1,6 +1,6 @@
 <template>
     <v-layout>
-        <v-flex v-for="recipe in items" :key="recipe.id" xs6 style="padding: 12px;">
+        <v-flex v-for="recipe in recipes" :key="recipe.id" xs6 style="padding: 12px;">
             <v-card >
                 <v-img
                     :src="'/assets/images/' + recipe.image"
@@ -68,33 +68,6 @@
 <script>
     export default {
         props: ['recipes'],
-        data() {
-            return {
-                items: []
-            };
-        },
-        watch: {
-            recipes() {
-                this.getItems();
-            }
-        },
-        methods: {
-            getItems() {
-                this.items = JSON.parse(JSON.stringify(this.recipes));
-                this.items.forEach(item => {
-                    console.log(item)
-                    item.ingredients.forEach(ingredient => {
-                        console.log(ingredient);
-                        ingredient.selected = ingredient.selected_by_default
-                        console.log(ingredient.selected);
-                    })
-                });
-                console.log(this.recipes)
-                console.log(this.items)
-
-            }
-        }
-
     }
 </script>
 

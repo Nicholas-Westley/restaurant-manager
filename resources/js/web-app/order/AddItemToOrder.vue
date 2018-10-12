@@ -1,28 +1,59 @@
 <template>
-    <div class="add-item-container">
-        <div v-if="!selectedRecipe">
-            Select item to configure
-        </div>
-        <div v-if="selectedRecipe">
-            <h1>{{ selectedRecipe.name }}</h1>
-            <h3>{{ selectedRecipe.description }}</h3>
-            <div v-for="ingredient in selectedRecipe.ingredients">
-                <label class="ingredient-label">
-                    <input
-                        type="checkbox"
-                        class="ingredient-checkbox"
-                        v-model="formData[ingredient.id]"
-                        :disabled="!ingredient.optional"/>
-                    {{ ingredient.name }}
-                </label>
-            </div>
-            <add-item
-                @itemAdded="$emit('itemAdded', { recipe: selectedRecipe, ingredientIds: formData })"
-                @cancelAdd="$emit('itemAdded', null)"
-            />
-        </div>
-   </div>
+    <v-layout row justify-center>
+
+        <v-dialog v-model="dialog" max-width="500px">
+            <v-card>
+                <v-card-title class="headline grey lighten-2" primary-title>
+                    <v-label>
+                        Add This Item to Order?
+                    </v-label>
+                </v-card-title>
+
+                <v-card-text>
+
+                    <h1>
+                        <v-label>
+                            {{ selectedRecipe.name }}
+                        </v-label>
+                        <span style="font-size: 60%">
+                            <v-label>
+                                with
+                            </v-label>
+                        </span>
+                    </h1>
+                    <div v-for="ingredient in selectedRecipe.ingredients.filter(i => i.selected)">
+                        <label class="ingredient-label">
+                            <v-label>
+                                {{ ingredient.name }}
+                            </v-label>
+                        </label>
+                    </div>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                        color="orange darken-1"
+                        flat
+                        @click="dialog = false"
+                    >
+                        Cancel
+                    </v-btn>
+
+                    <v-btn
+                        color="orange darken-1"
+                        flat
+                        @click="dialog = false; $emit('itemAdded')"
+                    >
+                        Add to Order
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </v-layout>
 </template>
+
 
 <script>
     import AddItem from './AddItem';
@@ -32,7 +63,7 @@
         props: ['selectedRecipe'],
         data() {
             return {
-                formData: {}
+                dialog: null,
             }
         },
         watch: {
@@ -40,8 +71,7 @@
                 immediate: true,
                 handler(newVal, oldVal) {
                     if(!this.selectedRecipe) return;
-                    this.formData = {};
-                    this.selectedRecipe.ingredients.forEach(i => (this.formData[i.id] = i.selected_by_default));
+                    this.dialog = true;
                 }
             }
         }

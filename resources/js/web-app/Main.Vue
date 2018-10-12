@@ -5,14 +5,15 @@
             @viewSwitched="viewSwitched"
             :currentView="currentView"
         />
-        <div>
-            <template v-if="currentView === 'Chef'">
-                <cook-controller/>
-            </template>
-            <template v-if="currentView === 'Customer' || currentView === 'Cashier'">
-                <order-controller/>
-            </template>
-        </div>
+
+
+        <template v-if="currentView === 'Chef'">
+            <cook-controller/>
+        </template>
+        <template v-if="currentView === 'Customer' || currentView === 'Cashier'">
+            <order-controller/>
+        </template>
+
     </div>
 </template>
 
