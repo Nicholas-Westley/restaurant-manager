@@ -1,25 +1,63 @@
 <template>
     <v-layout>
-        <v-flex v-for="recipe in recipes" :key="recipe.id" xs6 style="padding: 12px;">
+        <v-flex v-for="recipe in items" :key="recipe.id" xs6 style="padding: 12px;">
             <v-card >
                 <v-img
-                        :src="'/assets/images/' + recipe.image"
-                        aspect-ratio="3"
+                    :src="'/assets/images/' + recipe.image"
+                    aspect-ratio="3"
                 ></v-img>
 
                 <v-card-title primary-title>
                     <div>
-                        <h3 class="headline mb-0">{{ recipe.name }}</h3>
-                        <div>{{ recipe.description }} </div>
+                        <h1 class="headline mb-0">{{ recipe.name }}</h1>
+                        <!--<div>{{ recipe.description }} </div>-->
                     </div>
                 </v-card-title>
+                <v-card-text style="min-height: 160px">
+                    <div style="display: flex">
+                        <div style="min-width: 200px">
+                            <h4 style="color: orange;">
+                                Components
+                            </h4>
+                            <div v-for="ingredient in recipe.ingredients.filter(i => !i.optional)">
+                                <v-checkbox
+                                    :label="ingredient.name"
+                                    v-model="ingredient.selected"
+                                    disabled
+                                ></v-checkbox>
+                            </div>
+                        </div>
+                        <div style="min-height: 320px">
+                            <h4 style="color: orange;">
+                                Configurable Components (free)
+                            </h4>
+                            <div v-for="ingredient in recipe.ingredients.filter(i => i.optional)">
+
+                                <v-checkbox
+                                    :label="ingredient.name"
+                                    v-model="ingredient.selected"
+                                ></v-checkbox>
+
+                            </div>
+                        </div>
+                    </div>
+                </v-card-text>
 
                 <v-card-actions>
                     <v-btn
                         @click="$emit('recipeSelected', recipe)"
+                        large
+                        color="orange"
+                        >
+                        Add To Order
+                    </v-btn>
+                    <v-btn
+                        @click="$emit('recipeSelected', recipe)"
+                        large
                         flat
-                        color="orange">
-                        Order
+                        color="orange"
+                    >
+                        Reset Item
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -29,14 +67,51 @@
 
 <script>
     export default {
-        props: ['recipes']
+        props: ['recipes'],
+        data() {
+            return {
+                items: []
+            };
+        },
+        watch: {
+            recipes() {
+                this.getItems();
+            }
+        },
+        methods: {
+            getItems() {
+                this.items = JSON.parse(JSON.stringify(this.recipes));
+                this.items.forEach(item => {
+                    console.log(item)
+                    item.ingredients.forEach(ingredient => {
+                        console.log(ingredient);
+                        ingredient.selected = ingredient.selected_by_default
+                        console.log(ingredient.selected);
+                    })
+                });
+                console.log(this.recipes)
+                console.log(this.items)
+
+            }
+        }
+
     }
 </script>
 
-<style scoped lang="scss">
-
-
-
+<style >
+    .v-input--selection-controls .v-input__slot,
+    .v-input__slot, .v-input__slot {
+        margin: 0 !important;
+        padding: 0 !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    .v-messages { display: none; }
+    .v-label {
+        font-size: 150%;
+        padding-top: 4px;
+    }
 
 
 </style>

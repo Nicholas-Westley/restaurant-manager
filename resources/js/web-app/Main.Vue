@@ -5,7 +5,7 @@
             @viewSwitched="viewSwitched"
             :currentView="currentView"
         />
-        <div class="panel-container">
+        <div>
             <template v-if="currentView === 'Chef'">
                 <cook-controller/>
             </template>
@@ -47,10 +47,5 @@
 </script>
 
 <style>
-    .panel-container {
-        display: flex;
-        align-items: stretch;
-        flex-direction: row;
-        height: calc(100vh - 115px);
-    }
+
 </style>

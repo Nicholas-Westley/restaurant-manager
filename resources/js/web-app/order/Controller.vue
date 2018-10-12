@@ -10,6 +10,7 @@
 
         <!-- REFINE ITEM TO ADD TO ORDER -->
         <add-item-to-order
+            v-if="selectedRecipe"
             class="order-column add-item-to-order"
             :selectedRecipe="selectedRecipe"
             @itemAdded="itemAdded"
@@ -17,6 +18,7 @@
 
         <!-- ORDER IN PROCESS -->
         <order-being-created
+            v-if="selectedRecipe || currentOrder.length"
             class="order-column order-being-created"
             :currentOrder="currentOrder"
             :submittable="selectedRecipe !== null"
@@ -71,23 +73,5 @@
 </script>
 
 <style scoped>
-    .order-pane {
-        background-color: #FAFAFF;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-    .order-column {
-        padding: 16px;
-    }
-    .recipe-list {
 
-    }
-    .add-item-to-order{
-
-        background-color: white;
-    }
-    .order-being-created {
-
-    }
 </style>
