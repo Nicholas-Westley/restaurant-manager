@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Setting;
 
 class WebAppController extends Controller {
 
@@ -11,7 +10,12 @@ class WebAppController extends Controller {
     }
 
     public function show($restaurant_id) {
-        return view('webapp')
-            ->with('restaurant_id', $restaurant_id);
+        $settings = Setting::whereUserId(auth()->user()->id)->get();
+        return view('webapp',
+            [
+                'restaurant_id' => $restaurant_id,
+                'settings' => $settings
+            ]
+        );
     }
 }

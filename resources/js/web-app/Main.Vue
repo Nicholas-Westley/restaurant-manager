@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <view-switcher
+            v-if="userType === 'Chef' || userType === 'Cashier'"
             @viewSwitched="viewSwitched"
             :currentView="currentView"
         />
@@ -28,19 +29,18 @@
         },
         data() {
             return {
-                currentView: 'Cashier'
-            }
+                currentView: '',
+                userType: '',
+            };
         },
-        created() {},
-        mounted() {
-            console.warn("*********")
-            console.log(this.$router);
-            console.log(this);
+        created() {
+            const setting = window.user_settings.find(s => s.setting_key === 'user_type');
+            this.currentView = setting.setting_value;
+            this.userType = setting.setting_value;
         },
         methods: {
             viewSwitched(viewType) {
                 this.currentView = viewType;
-                console.log(this.restaurant_id);
             }
         }
     };

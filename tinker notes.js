@@ -1,5 +1,5 @@
 
-$tables = DB::select('show tables'); 
+$tables = DB::select('show tables');
 $columns = \Schema::getColumnListing('orders');
 
 
@@ -9,6 +9,14 @@ $o = new Order([
      "served" => false,
      "recipe_id" => false
 ]);
+
+$o = new SettingOption([
+    "setting_id" => 1,
+    "name" => "Chef"
+]);
+
+
+
 
 
 

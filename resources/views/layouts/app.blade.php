@@ -66,6 +66,9 @@
                                     <a class="dropdown-item" href="/dashboard">
                                         {{ __('Home') }}
                                     </a>
+                                    <a class="dropdown-item" href="/settings">
+                                        {{ __('Settings') }}
+                                    </a>
                                 </div>
                             </li>
                         @endguest

@@ -22,4 +22,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Invitation', 'invitee_id');
     }
 
+    /* RELATIONSHIP */
+    public function settings() {
+        return $this->hasMany('App\Setting');
+    }
+
 }

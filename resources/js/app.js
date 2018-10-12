@@ -1,10 +1,10 @@
-/*++ generated */
+
 require('./bootstrap');
 window.Vue = require('vue');
-/*-- generated */
+
 import Vue from 'vue';
-import Main from './components/Main';
-// import routes from './routes';
+import Main from './web-app/Main';
+import MainSettings from './settings-app/MainSettings';
 Vue.config.productionTip = false;
 axios.defaults.baseURL = `http://food-order-tracker.development/api/`;
 
@@ -14,14 +14,22 @@ axios.defaults.headers.common = {
     'X-CSRF-TOKEN' : token.content
 };
 
+if(document.getElementById("vue")) {
+    /* eslint-disable no-new */
+    new Vue({
+        el: '#vue',
+        components: {Main},
+        template: '<Main/>',
+    });
+}
 
-// Vue.use(VueRouter);
+if(document.getElementById("vue-settings")) {
+    /* eslint-disable no-new */
+    new Vue({
+        el: '#vue-settings',
+        components: {MainSettings},
+        template: '<MainSettings/>',
+    });
+}
 
-/* eslint-disable no-new */
-new Vue({
-    el: '#vue',
-    components: { Main },
-    template: '<Main/>',
-    // router: new VueRouter({ routes }),
-    // store,
-});
+
