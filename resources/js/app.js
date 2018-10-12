@@ -5,8 +5,11 @@ window.Vue = require('vue');
 import Vue from 'vue';
 import Main from './web-app/Main';
 import MainSettings from './settings-app/MainSettings';
+import './plugins/vuetify'
+
 Vue.config.productionTip = false;
 axios.defaults.baseURL = `http://food-order-tracker.development/api/`;
+
 
 const token= document.getElementsByName('csrf-token')[0];
 axios.defaults.headers.common = {

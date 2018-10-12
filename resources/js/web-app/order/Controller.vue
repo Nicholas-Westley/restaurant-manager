@@ -2,10 +2,10 @@
     <div class="order-pane">
         <!-- RECIPE LIST -->
         <recipe-list
+            v-if="!selectedRecipe"
             :recipes="recipes"
             class="order-column recipe-list"
             @recipeSelected="recipeSelected"
-            :selectedRecipe="selectedRecipe"
         />
 
         <!-- REFINE ITEM TO ADD TO ORDER -->
@@ -74,20 +74,20 @@
     .order-pane {
         background-color: #FAFAFF;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         width: 100%;
     }
     .order-column {
         padding: 16px;
     }
     .recipe-list {
-        width: 50%;
+
     }
     .add-item-to-order{
-        width: 25%;
+
         background-color: white;
     }
     .order-being-created {
-        width: 25%;
+
     }
 </style>
