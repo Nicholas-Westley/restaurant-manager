@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\OrderItemIngredientMap;
 use App\Order;
 use App\OrderItem;
+use Log;
 
 class OrdersController extends Controller
 {
@@ -49,18 +50,16 @@ class OrdersController extends Controller
         $order->save();
         $items = $request->input('items');
         foreach($items as $item) {
-            $recipe = $item['recipe'];
             $orderItem = new OrderItem();
-            $orderItem->recipe_id = $recipe['id'];
+            $orderItem->recipe_id = $item['id'];
             $orderItem->order_id = $order->id;
             $orderItem->completed = false;
             $orderItem->in_progress = false;
             $orderItem->save();
-            $ingredientIds = $item['ingredientIds'];
-            foreach($ingredientIds as $id => $value) {
-                if(!empty($value)) {
+            foreach($item['ingredients'] as $key => $ingredient) {
+                if(($ingredient['selected'])) {
                     $map = new OrderItemIngredientMap();
-                    $map->ingredient_id = $id;
+                    $map->ingredient_id = $key;
                     $map->order_item_id = $orderItem->id;
                     $map->save();
                 }
