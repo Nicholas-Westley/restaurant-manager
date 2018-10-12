@@ -1,5 +1,5 @@
 <template>
-    <div class="order-being-created">
+    <div class="checkout">
 
         <!-- SUBMIT -->
         <v-btn
@@ -38,13 +38,13 @@
 
 <script>
 export default {
-    name: "OrderBeingCreated",
+    name: "checkout",
     props: ['submittable', 'currentOrder', 'selectedRecipe'],
 }
 </script>
 
 <style scoped>
-    .order-being-created {
+    .checkout {
         padding: 16px;
     }
     .order-item {

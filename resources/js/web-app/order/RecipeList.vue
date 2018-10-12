@@ -9,7 +9,11 @@
 
                 <v-card-title primary-title>
                     <div>
-                        <h1 class="headline mb-0">{{ recipe.name }}</h1>
+                        <h1 class="headline mb-0">
+                            <v-label>
+                                {{ recipe.name }}
+                            </v-label>
+                        </h1>
                         <!--<div>{{ recipe.description }} </div>-->
                     </div>
                 </v-card-title>

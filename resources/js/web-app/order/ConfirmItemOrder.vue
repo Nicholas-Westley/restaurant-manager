@@ -3,7 +3,7 @@
 
         <v-dialog v-model="dialog" max-width="500px">
             <v-card>
-                <v-card-title class="headline grey lighten-2" primary-title>
+                <v-card-title class="headline grey" primary-title>
                     <v-label>
                         Add This Item to Order?
                     </v-label>
@@ -54,12 +54,9 @@
     </v-layout>
 </template>
 
-
 <script>
-    import AddItem from './AddItem';
     export default {
-        name: "add-item-to-order",
-        components: { AddItem },
+        name: "confirm-item-order",
         props: ['selectedRecipe'],
         data() {
             return {
@@ -79,9 +76,4 @@
 </script>
 
 <style scoped>
-    .add-item-container {
-        padding: 16px;
-    }
-    .ingredient-label {
-    }
 </style>

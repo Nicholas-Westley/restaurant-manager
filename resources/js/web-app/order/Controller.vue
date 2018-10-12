@@ -9,19 +9,19 @@
             />
 
             <!-- ORDER IN PROCESS -->
-            <order-being-created
-                    v-if="currentOrder.length"
-                    class="order-column order-being-created"
-                    :currentOrder="currentOrder"
-                    :submittable="selectedRecipe !== null"
-                    :selectedRecipe="selectedRecipe"
-                    @itemRemoved="itemRemoved"
-                    @submitOrder="submitOrder"
+            <checkout
+                v-if="currentOrder.length"
+                class="order-column order-being-created"
+                :currentOrder="currentOrder"
+                :submittable="selectedRecipe !== null"
+                :selectedRecipe="selectedRecipe"
+                @itemRemoved="itemRemoved"
+                @submitOrder="submitOrder"
             />
         </div>
 
-        <!-- REFINE ITEM TO ADD TO ORDER -->
-        <add-item-to-order
+        <!-- CONFIRM ITEM TO ADD TO ORDER -->
+        <confirm-item-order
             v-if="selectedRecipe"
             class="order-column add-item-to-order"
             :selectedRecipe="selectedRecipe"
@@ -33,10 +33,10 @@
 
 <script>
     import RecipeList from "./RecipeList";
-    import AddItemToOrder from "./AddItemToOrder";
-    import OrderBeingCreated from "./OrderBeingCreated";
+    import ConfirmItemOrder from "./ConfirmItemOrder";
+    import Checkout from "./Checkout";
     export default {
-        components: { RecipeList, AddItemToOrder, OrderBeingCreated },
+        components: { RecipeList, ConfirmItemOrder, Checkout },
         data () {
             return {
                 selectedRecipe: null,
@@ -55,9 +55,6 @@
                 this.selectedRecipe = { ...recipe };
             },
             itemAdded() {
-                console.log(this.currentOrder);
-                console.log(this.selectedRecipe)
-                console.log(JSON.stringify(this.selectedRecipe))
                 if(this.selectedRecipe) this.currentOrder.push({...this.selectedRecipe});
                 this.selectedRecipe = null;
             },
