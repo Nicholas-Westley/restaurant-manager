@@ -18,7 +18,7 @@ Route::resource('restaurants', 'RestaurantsController')
 /* INGREDIENTS */
 Route::resource('restaurants/{restaurant_id}/recipes/{recipe_id}/ingredients',
     'IngredientsController')
-    ->only(['create', 'store', 'destroy']);
+    ->only(['create', 'store', 'destroy', 'edit', 'update']);
 /* SETTINGS */
 Route::resource('settings', 'SettingsController')
     ->only(['index']);

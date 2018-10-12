@@ -26,12 +26,28 @@
                     @foreach($recipe['ingredients'] as $ingredient)
                         <div>
                             <label class="ingredient-label">
-                                <input
-                                    type="checkbox"
-                                    disabled
-                                    {{ $ingredient['selected_by_default'] ? 'checked' : '' }}
-                                />
-                                {{ $ingredient['name'] }}
+                                <a  style="font-size: 160%"
+                                    href="/restaurants/{{$restaurant['id']}}/recipes/{{ $recipe['id']  }}/ingredients/{{ $ingredient['id']  }}/edit">
+                                    {{ $ingredient['name'] }}
+                                </a>
+                                (
+                                <label>
+                                    <input
+                                            type="checkbox"
+                                            disabled
+                                            {{ $ingredient['optional'] ? 'checked' : '' }}
+                                    />
+                                    Optional
+                                </label>
+                                <label>
+                                    <input
+                                            type="checkbox"
+                                            disabled
+                                            {{ $ingredient['selected_by_default'] ? 'checked' : '' }}
+                                    />
+                                    Selected By Default
+                                </label>
+                                )
                                 @include('inc.form-components.delete-ingredient')
                             </label>
                         </div>

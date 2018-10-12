@@ -42,6 +42,34 @@ class IngredientsController extends Controller {
         return redirect("restaurants/{$restaurant_id}");
     }
 
+    public function edit($restaurant_id, $recipe_id, $ingredient_id) {
+        $ingredient = Ingredient::whereId($ingredient_id)->first();
+        $with = [
+            'restaurant_id'=>$restaurant_id,
+            'recipe_id'=>$recipe_id,
+            'ingredient' => $ingredient
+        ];
+        return view('edit-ingredient', $with);
+    }
+
+    public function update(Request $request, $restaurant_id, $recipe_id, $ingredient_id) {
+        $ingredient = Ingredient::whereId($ingredient_id)->first();
+        if($ingredient) {
+            $ingredient->name = $request->input('ingredient');
+            $ingredient->optional = $request->input('optional') === 'optional';
+            $ingredient->recipe_id = $recipe_id;
+            $ingredient->selected_by_default
+                = $request->input('selected_by_default') === 'selected_by_default';
+            if (!$ingredient->optional) {
+                $ingredient->selected_by_default = true;
+            }
+            $ingredient->save();
+            return redirect("restaurants/{$restaurant_id}");
+        }
+        return 'fail';
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *

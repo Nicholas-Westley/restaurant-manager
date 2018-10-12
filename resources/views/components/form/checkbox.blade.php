@@ -1,4 +1,4 @@
 <div class="form-group">
     {{ Form::label($name, $label) }}
-    {{ Form::checkbox($name, $value) }}
+    {{ Form::checkbox($name, $value, $checked) }}
 </div>
