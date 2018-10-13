@@ -1,11 +1,14 @@
 <template>
-    <div id="app">
+    <v-app id="app">
         <view-switcher
             v-if="userType === 'Chef' || userType === 'Cashier'"
             @viewSwitched="viewSwitched"
             :currentView="currentView"
         />
 
+        <div v-if="userType === 'Chef'">
+            <event-receiver-viewer @switchToChef="currentView='Chef'"/>
+        </div>
 
         <template v-if="currentView === 'Chef'">
             <cook-controller/>
@@ -14,34 +17,54 @@
             <order-controller/>
         </template>
 
-    </div>
+    </v-app>
 </template>
 
 <script>
     import CookController from "./cook/Controller";
     import OrderController from "./order/Controller";
     import ViewSwitcher from "./ViewSwitcher";
+    import EventReceiverViewer from "./EventReceiverViewer";
     export default {
         name: 'App',
         components: {
             CookController,
             OrderController,
-            ViewSwitcher
+            ViewSwitcher,
+            EventReceiverViewer,
         },
         data() {
             return {
                 currentView: '',
                 userType: '',
+                event: null,
             };
         },
         created() {
             const setting = window.user_settings.find(s => s.setting_key === 'user_type');
             this.currentView = setting.setting_value;
             this.userType = setting.setting_value;
+            this.setupEvents();
         },
         methods: {
+            switchToChef() {
+                console.warn("SWITCHING TO CHEF")
+            },
             viewSwitched(viewType) {
                 this.currentView = viewType;
+            },
+            setupEvents() {
+                Pusher.logToConsole = true;
+
+                var pusher = new Pusher('27a7024685e842c6a2d3', {
+                    cluster: 'ap1',
+                    forceTLS: true
+                });
+
+                var channel = pusher.subscribe('my-channel');
+                channel.bind('my-event', function(data) {
+                    this.event = data;
+                });
             }
         }
     };

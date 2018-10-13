@@ -9,6 +9,7 @@ use App\OrderItemIngredientMap;
 use App\Order;
 use App\OrderItem;
 use Log;
+use Pusher;
 
 class OrdersController extends Controller
 {
@@ -65,6 +66,22 @@ class OrdersController extends Controller
                 }
             }
         }
+
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher(
+            '27a7024685e842c6a2d3',
+            '21d1bdf0f005df0b3e8c',
+            '620790',
+            $options
+        );
+
+        $data = ['type'=>'order_created'];
+        $pusher->trigger('my-channel', 'my-event', $data);
+
+
     }
 
     /**

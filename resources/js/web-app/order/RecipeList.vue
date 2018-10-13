@@ -1,6 +1,6 @@
 <template>
     <v-layout>
-        <v-flex v-for="recipe in recipes" :key="recipe.id" xs6 style="padding: 12px;">
+        <v-flex v-for="recipe in recipes" :key="recipe.id" xs6 style="padding: 12px; max-width: 500px">
             <v-card >
                 <v-img
                     :src="'/assets/images/' + recipe.image"
@@ -17,7 +17,7 @@
                         <!--<div>{{ recipe.description }} </div>-->
                     </div>
                 </v-card-title>
-                <v-card-text style="min-height: 160px">
+                <v-card-text style="height: 260px">
                     <div style="display: flex">
                         <div style="min-width: 200px">
                             <h4 style="color: orange;">
@@ -31,7 +31,7 @@
                                 ></v-checkbox>
                             </div>
                         </div>
-                        <div style="min-height: 320px">
+                        <div>
                             <h4 style="color: orange;">
                                 Configurable Components (free)
                             </h4>

@@ -25,6 +25,7 @@
             axios.get(`settings`)
                 .then(response => {
                     this.settings = response.data;
+                    if(!this.settings) this.settings = [];
                 });
         },
         methods: {
