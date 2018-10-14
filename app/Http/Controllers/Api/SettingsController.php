@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Setting;
+use App\SettingValue;
 use Log;
 
 class SettingsController extends Controller
@@ -13,19 +14,19 @@ class SettingsController extends Controller
         $this->middleware('auth', ['except' => []]);
     }
 
-    public function index()
-    {
+    public function index() {
         return Setting::whereUserId(auth()->user()->id)
+            ->with('settingValue')
             ->with('settingOptions')
             ->get();
     }
 
-    public function update(Request $request, $setting_id) {
+    public function update(Request $request, $setting_value_id) {
         $updatedSetting = $request->input('data');
-        $setting = Setting::find($setting_id);
-        if($setting) {
-            $setting->setting_value = $updatedSetting['value'];
-            $setting->save();
+        $settingValue = SettingValue::find($setting_value_id);
+        if($settingValue) {
+            $settingValue->value = $updatedSetting['value'];
+            $settingValue->save();
         }
     }
 }
