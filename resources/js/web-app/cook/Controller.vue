@@ -33,7 +33,10 @@
         },
         mounted() {
             axios.get('orders')
-                .then( response => this.orders = response.data );
+                .then( response => {
+                    this.orders = response.data;
+                    this.orderSelected(this.orders[0]);
+                } );
         },
         methods: {
             setOrders(orders) {
@@ -88,8 +91,6 @@
                     .then(response => this.setOrders(response.data ))
                     .catch(error => console.error(error));
             }
-
-
         }
     }
 </script>

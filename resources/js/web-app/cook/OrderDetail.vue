@@ -1,6 +1,12 @@
 <template>
     <div v-if="selectedOrder">
-        <h4> Order Number {{ selectedOrder.id }}</h4>
+
+        <v-label>
+            <h1>
+                Order Number {{ selectedOrder.id }}
+            </h1>
+        </v-label>
+
         <order-operations
             :selectedOrder="selectedOrder"
             @acceptOrder="$emit('acceptOrder', selectedOrder)"
@@ -10,6 +16,7 @@
         />
 
         <order-detail-order-item
+            v-if="selectedOrder.accepted"
             v-for="item in items"
             :key="item.id"
             :item="item"

@@ -1,19 +1,22 @@
 <template>
     <div>
-        <button
+        <v-btn
             v-if="!selectedOrder.accepted"
-            class="btn btn-danger"
+            color="success"
             @click="$emit('acceptOrder')">
-            Accept</button>
-        <button
+            Accept
+        </v-btn>
+        <v-btn
             v-if="!selectedOrder.served && selectedOrder.ready"
-            class="btn btn-primary"
+            color="success"
             @click="$emit('serveOrder')">
-            Serve</button>
-        <button
-            class="btn btn-danger"
+            Serve
+        </v-btn>
+        <v-btn
+            color="error"
             @click="$emit('deleteOrder')">
-            Delete Order</button>
+            Delete Order
+        </v-btn>
     </div>
 </template>
 

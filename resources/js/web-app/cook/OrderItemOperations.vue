@@ -1,15 +1,17 @@
 <template>
     <div>
-        <button
+        <v-btn
             v-if="!item.in_progress && !item.completed"
-            class="btn btn-secondary"
-            @click="$emit('markItemInProgress')">
-            In Progress</button>
-        <button
+            @click="$emit('markItemInProgress')"
+            color="success">
+            Start
+        </v-btn>
+        <v-btn
             v-if="!item.completed && item.in_progress"
-            class="btn btn-secondary"
-            @click="$emit('markItemCompleted')">
-            Completed</button>
+            @click="$emit('markItemCompleted')"
+            color="success">
+            Completed
+        </v-btn>
     </div>
 
 </template>

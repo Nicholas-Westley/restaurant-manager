@@ -54,7 +54,7 @@
                 this.currentView = viewType;
             },
             setupEvents() {
-                Pusher.logToConsole = true;
+                // Pusher.logToConsole = true;
 
                 var pusher = new Pusher('27a7024685e842c6a2d3', {
                     cluster: 'ap1',
