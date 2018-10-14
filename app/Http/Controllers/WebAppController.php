@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Setting;
+use App\SettingValue;
+use Log;
 
 class WebAppController extends Controller {
 
@@ -10,10 +12,12 @@ class WebAppController extends Controller {
     }
 
     public function show($restaurant_id) {
-        $settings = Setting::whereUserId(auth()->user()->id)
-            ->with('settingValue')
-            ->with('settingOptions')
+        $settings = SettingValue::whereUserId(auth()->id())
+            ->with('setting')
+//            ->with('setting.settingOptions')
             ->get();
+
+        Log::debug($settings);
 
         return view('webapp',
             [

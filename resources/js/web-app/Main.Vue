@@ -41,8 +41,8 @@
             };
         },
         created() {
-            const setting = window.user_settings.find(s => s.setting_key === 'user_type');
-            this.userType = setting.setting_value.value;
+            const setting = window.user_settings.find(s => s.setting.setting_key === 'user_type');
+            this.userType = setting.value;
             this.currentView = this.userType;
             this.setupEvents();
         },

@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div v-for="setting in settings">
+        <div v-for="value in settingValues">
             <h5>
-                {{ setting.setting_name }}
+                {{ value.setting.setting_name }}
             </h5>
             <setting-element
-                @setSettingOption="setSettingOption($event, setting)"
-                :setting="setting"/>
+                @setSettingOption="setSettingOption($event, value)"
+                :setting="value"/>
         </div>
     </div>
 </template>
@@ -18,19 +18,20 @@
         components: { SettingElement },
         data() {
             return {
-                settings: [],
+                settingValues: [],
             };
         },
         mounted() {
             axios.get(`settings`)
                 .then(response => {
-                    this.settings = response.data;
-                    if(!this.settings) this.settings = [];
+                    console.log(response)
+                    this.settingValues = response.data;
+                    if(!this.settingValues) this.settingValues = [];
                 });
         },
         methods: {
             setSettingOption(option, setting) {
-                axios.post(`settings/${setting.setting_value.id}`, { data: { value: option.name } , _method: 'patch'})
+                axios.post(`settings/${setting.id}`, { data: { value: option.name } , _method: 'patch'})
                     .then(response => console.log(response))
                     .catch(error => console.error(error));
             }

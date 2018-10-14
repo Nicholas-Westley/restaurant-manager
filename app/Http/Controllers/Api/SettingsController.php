@@ -15,9 +15,9 @@ class SettingsController extends Controller
     }
 
     public function index() {
-        return Setting::whereUserId(auth()->user()->id)
-            ->with('settingValue')
-            ->with('settingOptions')
+        return SettingValue::whereUserId(auth()->id())
+            ->with('setting')
+            ->with('setting.settingOptions')
             ->get();
     }
 
