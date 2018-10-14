@@ -26,7 +26,7 @@ class InvitationsController extends Controller {
                 ->whereInviteeId($invitee['id'])
                 ->first();
             if($invitation) {
-                return redirect('restaurants')->with('message', 'Invite already sent');
+                return redirect("restaurants/{$restaurant_id}")->with('message', 'Invite already sent');
             }
             $invitation = new Invitation();
             $invitation->restaurant_id = $restaurant_id;
@@ -35,7 +35,8 @@ class InvitationsController extends Controller {
             $invitation->accepted = false;
             $invitation->save();
         }
-        return redirect('restaurants')
+
+        return redirect("restaurants/{$restaurant_id}")
             ->with('success', 'Invite sent if user exists');
     }
 
@@ -58,7 +59,7 @@ class InvitationsController extends Controller {
             $restaurant->users()->attach(auth()->user());
             return redirect('restaurants')->with('message', 'Added to Restaurant');
         }
-        return redirect('restaurants');
+        return redirect("restaurants/{$restaurant_id}");
     }
 
     public function destroy($id) {
