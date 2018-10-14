@@ -7,7 +7,7 @@
                 type="radio"
                 :name="option.setting_id"
                 :id="option.id"
-                :checked="option.name === setting.setting_value"/>
+                :checked="option.name === setting.setting_value.value"/>
             <label
                 :for="option.id">
                 {{ option.name }}

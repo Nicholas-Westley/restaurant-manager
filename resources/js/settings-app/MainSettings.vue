@@ -30,7 +30,7 @@
         },
         methods: {
             setSettingOption(option, setting) {
-                axios.post(`settings/${setting.id}`, { data: { value: option.name } , _method: 'patch'})
+                axios.post(`settings/${setting.setting_value.id}`, { data: { value: option.name } , _method: 'patch'})
                     .then(response => console.log(response))
                     .catch(error => console.error(error));
             }

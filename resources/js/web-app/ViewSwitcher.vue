@@ -24,6 +24,15 @@
                 highlight: null
             }
         },
+        watch: {
+            currentView: {
+                immediate: true,
+                handler(newVal, oldVal) {
+                    if(!newVal) return;
+                    this.highlight = newVal;
+                }
+            }
+        },
         methods: {
             switchView(type) {
                 this.$emit('viewSwitched', type);
