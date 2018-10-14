@@ -42,8 +42,8 @@
         },
         created() {
             const setting = window.user_settings.find(s => s.setting_key === 'user_type');
-            this.currentView = setting.setting_value;
-            this.userType = setting.setting_value;
+            this.userType = setting.setting_value.value;
+            this.currentView = this.userType;
             this.setupEvents();
         },
         methods: {

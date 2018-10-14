@@ -9,4 +9,9 @@ class Setting extends Model {
     public function settingOptions() {
         return $this->hasMany('App\SettingOption');
     }
+
+    /* RELATIONSHIP */
+    public function settingValue() {
+        return $this->hasOne('App\SettingValue');
+    }
 }

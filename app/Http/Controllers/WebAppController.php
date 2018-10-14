@@ -10,7 +10,11 @@ class WebAppController extends Controller {
     }
 
     public function show($restaurant_id) {
-        $settings = Setting::whereUserId(auth()->user()->id)->get();
+        $settings = Setting::whereUserId(auth()->user()->id)
+            ->with('settingValue')
+            ->with('settingOptions')
+            ->get();
+
         return view('webapp',
             [
                 'restaurant_id' => $restaurant_id,

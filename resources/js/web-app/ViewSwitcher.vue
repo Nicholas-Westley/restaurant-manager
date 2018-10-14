@@ -1,30 +1,35 @@
 <template>
     <div class="button-selector">
-        <button
-            class="btn"
-            :class="currentView === 'Chef' ? 'btn-primary' : 'btn-secondary'"
-            @click="$emit('viewSwitched', 'Chef')">
-            Chef
-        </button>
-        <button
-            class="btn"
-            :class="currentView === 'Cashier' ? 'btn-primary' : 'btn-secondary'"
-            @click="$emit('viewSwitched', 'Cashier')">
-            Cashier
-        </button>
-        <button
-            class="btn"
-            :class="currentView === 'Customer' ? 'btn-primary' : 'btn-secondary'"
-            @click="$emit('viewSwitched', 'Customer')">
-            Customer
-        </button>
+
+        <v-btn-toggle v-model="highlight">
+            <v-btn @click="switchView('Chef')" color="orange" value="Chef">
+                Chef
+            </v-btn>
+            <v-btn @click="switchView('Cashier')" color="orange" value="Cashier">
+                Cashier
+            </v-btn>
+            <v-btn @click="switchView('Customer')" color="orange" value="Customer">
+                Customer
+            </v-btn>
+        </v-btn-toggle>
     </div>
 </template>
 
 <script>
     export default {
         name: "view-switcher",
-        props: ['currentView']
+        props: ['currentView'],
+        data() {
+            return {
+                highlight: null
+            }
+        },
+        methods: {
+            switchView(type) {
+                this.$emit('viewSwitched', type);
+            },
+        },
+
     }
 </script>
 
