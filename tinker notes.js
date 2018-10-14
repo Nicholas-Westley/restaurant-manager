@@ -10,11 +10,17 @@ $o = new Order([
      "recipe_id" => false
 ]);
 
+$s = new App\SettingValue([
+    'user_id'=>1,
+    'setting_id'=>1,
+    'value'=>"Chef"
+]);
+$s->save();
+
 $o = new SettingOption([
     "setting_id" => 1,
     "name" => "Chef"
 ]);
-
 
 
 
