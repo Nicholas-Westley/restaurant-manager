@@ -64,9 +64,7 @@
             submitOrder() {
                 axios.post('orders', {items: this.currentOrder})
                     .then(response => console.log(response))
-                    .catch(error => {
-                        console.log(error.response)
-                    });
+                    .catch(error => console.log(error.response));
                 this.currentOrder = [];
             },
             getItems() {

@@ -3,7 +3,7 @@
         class="order-item secondary--text"
         :class="{
                 'item-completed': item.completed,
-                'item-in-progress': item.in_progress
+                'primary lighten-5': item.in_progress,
              }">
         <!-- ORDER STATE INFO -->
 
@@ -14,20 +14,19 @@
         <!-- GENERAL ORDER ITEM INFO -->
         <h4>
             {{ item.recipe.name }}
+            <!-- ORDER OPERATIONS -->
+            <order-item-operations
+                    :item="item"
+                    @markItemInProgress="$emit('markItemInProgress')"
+                    @markItemCompleted="$emit('markItemCompleted')"
+                    class="float-right"/>
         </h4>
-        <div>
-            {{ item.recipe.description }}
-        </div>
-        <!-- ORDER OPERATIONS -->
-        <order-item-operations
-            :item="item"
-            @markItemInProgress="$emit('markItemInProgress')"
-            @markItemCompleted="$emit('markItemCompleted')"/>
+
         <!-- INGREDIENTS -->
         <div v-for="ingredient in item.recipe.ingredients">
-            <v-label :class="selectedIngredients[item.id][ingredient.id] ? 'selected' : 'not-selected'">
+            <div :class="selectedIngredients[item.id][ingredient.id] ? 'selected' : 'not-selected'">
                 {{ ingredient.name }}
-            </v-label>
+            </div>
         </div>
     </div>
 </template>
@@ -62,7 +61,7 @@
         opacity: 0.5;
     }
     .item-in-progress {
-        /*background-color: green;*/
-        /*color: white;*/
+        background-color: var(--primary);
+        color: white;
     }
 </style>
