@@ -4,7 +4,7 @@
         <!-- SUBMIT -->
         <v-btn
             large
-            color="green darken-1"
+            color="primary"
             @click="$emit('submitOrder')"
         >
             Order

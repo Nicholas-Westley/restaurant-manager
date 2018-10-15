@@ -9,6 +9,7 @@
                 }">
                 <v-card-text
                     class="secondary--text"
+                    style="padding-bottom: 0"
                 >
                     <h1>
                         Order {{ order.id }}

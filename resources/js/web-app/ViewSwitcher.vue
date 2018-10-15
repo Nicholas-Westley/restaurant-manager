@@ -26,7 +26,7 @@
         data() {
             return {
                 active: null,
-                views: ['Chef', 'Cashier', 'Customer'],
+                views: ['Chef', 'Cashier'],
             }
         },
         watch: {
