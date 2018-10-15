@@ -2,9 +2,10 @@
 
 ## About Restaurant Manager
 
+An app for front and back of house restaurant communication.  Especially useful if staff speak different languages.
+
 Developed for "Jong's Latin Fusion" Restaurant and open sourced at their request.  This app is still very much under development.
 
-An app for front and back of house communication in a restaurant.  Especially useful if staff speak different languages
 
 ## Push Notifications
 
