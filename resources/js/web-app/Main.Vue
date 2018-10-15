@@ -1,12 +1,12 @@
 <template>
     <v-app id="app">
         <view-switcher
-            v-if="userType === 'Chef' || userType === 'Cashier'"
+            v-if="['Chef', 'Cashier'].includes(userType)"
             @viewSwitched="viewSwitched"
             :currentView="currentView"
         />
 
-        <div v-if="userType === 'Chef'">
+        <div v-if="['Chef', 'Cashier'].includes(userType)">
             <event-receiver-viewer @switchToChef="currentView='Chef'"/>
         </div>
 

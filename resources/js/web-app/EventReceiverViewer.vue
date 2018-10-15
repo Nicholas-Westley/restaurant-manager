@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import PusherConfig from './config/pusher';
     export default {
         name: "order-receiver-viewer",
         components: {},
@@ -27,14 +28,12 @@
             };
         },
         mounted() {
-            // Pusher.logToConsole = true;
-            const pusher = new Pusher('27a7024685e842c6a2d3', {
-                cluster: 'ap1',
-                forceTLS: true
-            });
-            pusher.subscribe('my-channel').bind('my-event', data => {
-                this.displayEvent(data);
-            });
+            Pusher.logToConsole = true;
+            new Pusher(PusherConfig.key, {
+                cluster: PusherConfig.cluster,
+                forceTLS: true})
+                .subscribe(PusherConfig.channel)
+                .bind(PusherConfig.events.order_received, data => this.displayEvent(data));
         },
         methods: {
             displayEvent(event) {

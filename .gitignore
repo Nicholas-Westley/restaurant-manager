@@ -19,3 +19,5 @@ yarn-error.log
 .env
 .phpunit.result.cache
 *.sql
+/config/pusher.php
+/resources/js/web-app/config/pusher.js

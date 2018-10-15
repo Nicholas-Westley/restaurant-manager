@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\Controller;
 use App\OrderItemIngredientMap;
 use App\Order;
@@ -67,21 +68,25 @@ class OrdersController extends Controller
             }
         }
 
-        $options = array(
-            'cluster' => 'ap1',
-            'useTLS' => true
+        $pusherConfig = Config::get('pusher', []);
+        $pusher = new Pusher\Pusher(
+            $pusherConfig['key'],
+            $pusherConfig['secret'],
+            $pusherConfig['app_id'],
+            [
+                'cluster' => $pusherConfig['cluster'],
+                'useTLS' => true
+            ]
         );
-        $pusher = new Pusher(
-            '27a7024685e842c6a2d3',
-            '21d1bdf0f005df0b3e8c',
-            '620790',
-            $options
-        );
-
         $data = ['type'=>'order_created'];
-        $pusher->trigger('my-channel', 'my-event', $data);
-
-
+        $pusher->trigger(
+            $pusherConfig['channel'],
+            $pusherConfig['events']['order_received'],
+            $data
+        );
+        Log::debug([$pusherConfig['channel'],
+            $pusherConfig['events']['order_received'],
+            $data]);
     }
 
     /**
