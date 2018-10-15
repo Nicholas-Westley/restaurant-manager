@@ -3,13 +3,13 @@
         <v-btn
             v-if="!item.in_progress && !item.completed"
             @click="$emit('markItemInProgress')"
-            color="success">
+            color="primary">
             Start
         </v-btn>
         <v-btn
             v-if="!item.completed && item.in_progress"
             @click="$emit('markItemCompleted')"
-            color="success">
+            color="primary">
             Completed
         </v-btn>
     </div>

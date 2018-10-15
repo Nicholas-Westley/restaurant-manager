@@ -7,7 +7,7 @@
              }">
         <!-- ORDER STATE INFO -->
 
-        <h1 v-if="item.completed" class="primary--text">
+        <h1 v-if="item.completed">
             Item Completed
         </h1>
 

@@ -4,7 +4,10 @@
            <order-list-item
                :order="order"
                :selectedOrder="selectedOrder"
-               @orderSelected="$emit('orderSelected', order)" />
+               @orderSelected="$emit('orderSelected', order)"
+               @acceptOrder="$emit('acceptOrder', order)"
+               @deleteOrder="$emit('deleteOrder', order)"
+               @serveOrder="$emit('serveOrder', order)"/>
        </div>
    </div>
 </template>
@@ -28,6 +31,6 @@
     .order-list {
         flex: 0.4;
         overflow-y: auto;
-        height: calc(100vh - 130px);
+        height: calc(100vh - 36px);
     }
 </style>

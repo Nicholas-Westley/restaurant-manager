@@ -1,18 +1,22 @@
 <template>
-    <div class="button-selector">
 
-        <v-btn-toggle v-model="highlight">
-            <v-btn @click="switchView('Chef')" color="orange" value="Chef">
-                Chef
-            </v-btn>
-            <v-btn @click="switchView('Cashier')" color="orange" value="Cashier">
-                Cashier
-            </v-btn>
-            <v-btn @click="switchView('Customer')" color="orange" value="Customer">
-                Customer
-            </v-btn>
-        </v-btn-toggle>
+    <div>
+        <v-tabs
+            v-model="active"
+            color="primary"
+            dark
+            grow
+            slider-color="accent">
+            <v-tab
+                v-for="view in views"
+                :key="view"
+                @click="switchView(view)"
+                ripple>
+                {{ view }}
+            </v-tab>
+        </v-tabs>
     </div>
+
 </template>
 
 <script>
@@ -21,7 +25,8 @@
         props: ['currentView'],
         data() {
             return {
-                highlight: null
+                active: null,
+                views: ['Chef', 'Cashier', 'Customer'],
             }
         },
         watch: {
@@ -29,7 +34,7 @@
                 immediate: true,
                 handler(newVal, oldVal) {
                     if(!newVal) return;
-                    this.highlight = newVal;
+                    this.active = this.views.indexOf(newVal);
                 }
             }
         },

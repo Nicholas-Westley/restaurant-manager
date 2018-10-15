@@ -20,7 +20,7 @@
                 <v-card-text style="height: 260px">
                     <div style="display: flex">
                         <div style="min-width: 200px">
-                            <h4 style="color: orange;">
+                            <h4 color="primary">
                                 Components
                             </h4>
                             <div v-for="ingredient in recipe.ingredients.filter(i => !i.optional)">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div>
-                            <h4 style="color: orange;">
+                            <h4 color="primary">
                                 Configurable Components (free)
                             </h4>
                             <div v-for="ingredient in recipe.ingredients.filter(i => i.optional)">
@@ -51,7 +51,7 @@
                     <v-btn
                         @click="$emit('recipeSelected', recipe)"
                         large
-                        color="orange"
+                        color="primary"
                         >
                         Add To Order
                     </v-btn>
@@ -59,7 +59,7 @@
                         @click="$emit('recipeSelected', recipe)"
                         large
                         flat
-                        color="orange"
+                        color="primary"
                     >
                         Reset Item
                     </v-btn>

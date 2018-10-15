@@ -1,19 +1,21 @@
 <template>
     <div v-if="selectedOrder">
 
-        <v-label>
-            <h1>
-                Order Number {{ selectedOrder.id }}
-            </h1>
-        </v-label>
 
-        <order-operations
-            :selectedOrder="selectedOrder"
-            @acceptOrder="$emit('acceptOrder', selectedOrder)"
-            @deleteOrder="$emit('deleteOrder', selectedOrder)"
-            @serveOrder="$emit('serveOrder', selectedOrder)"
-            style="margin-bottom: 16px;"
-        />
+        <h1>
+            Order Number {{ selectedOrder.id }}
+
+            <order-operations
+                :order="selectedOrder"
+                @acceptOrder="$emit('acceptOrder', selectedOrder)"
+                @deleteOrder="$emit('deleteOrder', selectedOrder)"
+                @serveOrder="$emit('serveOrder', selectedOrder)"
+                class="float-right"
+            />
+        </h1>
+
+
+
 
         <order-detail-order-item
             v-if="selectedOrder.accepted"

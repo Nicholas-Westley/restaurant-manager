@@ -34,7 +34,7 @@
                     <v-spacer></v-spacer>
 
                     <v-btn
-                        color="orange darken-1"
+                        color="primary darken-1"
                         flat
                         @click="dialog = false"
                     >
@@ -42,7 +42,7 @@
                     </v-btn>
 
                     <v-btn
-                        color="orange darken-1"
+                        color="primary darken-1"
                         flat
                         @click="dialog = false; $emit('itemAdded')"
                     >

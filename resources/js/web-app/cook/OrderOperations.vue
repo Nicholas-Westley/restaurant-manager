@@ -1,20 +1,24 @@
 <template>
     <div>
         <v-btn
-            v-if="!selectedOrder.accepted"
-            color="success"
-            @click="$emit('acceptOrder')">
+            v-if="!order.accepted"
+            color="primary"
+            @click="$emit('acceptOrder')"
+            small>
             Accept
         </v-btn>
         <v-btn
-            v-if="!selectedOrder.served && selectedOrder.ready"
-            color="success"
-            @click="$emit('serveOrder')">
+            v-if="!order.served && order.ready"
+            color="primary"
+            @click="$emit('serveOrder')"
+            small>
             Serve
         </v-btn>
         <v-btn
-            color="error"
-            @click="$emit('deleteOrder')">
+            v-if="!hideDelete"
+            color="secondary"
+            @click="$emit('deleteOrder')"
+            small>
             Delete Order
         </v-btn>
     </div>
@@ -23,7 +27,7 @@
 <script>
     export default {
         name: "order-operations",
-        props: ['selectedOrder']
+        props: ['order', 'hideDelete']
     }
 </script>
 

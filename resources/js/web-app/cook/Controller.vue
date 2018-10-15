@@ -4,7 +4,10 @@
             <order-list
                 :orders="orders"
                 :selectedOrder="selectedOrder"
-                @orderSelected="orderSelected"/>
+                @orderSelected="orderSelected"
+                @acceptOrder="acceptOrder"
+                @deleteOrder="deleteOrder"
+                @serveOrder="serveOrder"/>
         </div>
         <div class="cook-column order-detail">
             <order-detail
@@ -97,7 +100,6 @@
 
 <style scoped>
     .cook-pane {
-        background-color: #FAFAFF;
         display: flex;
         flex-direction: row;
         width: 100%;
