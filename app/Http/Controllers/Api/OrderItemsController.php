@@ -21,7 +21,7 @@ class OrderItemsController extends Controller {
         $orderItem->completed = $updatedOrderItem['completed'];
         $orderItem->in_progress = $updatedOrderItem['in_progress'];
         $orderItem->save();
-        $orderItem->order->checkReady();
-        return response()->json(Order::summaries());
+        $ready = $orderItem->order->checkReady();
+        return response()->json(['ready' => $ready]);
     }
 }

@@ -60,6 +60,9 @@
                 if(!order || !order.id) return;
                 order.accepted = true;
                 this.updateOrder(order);
+                if(this.selectedOrder.id !== order.id) {
+                    this.orderSelected(order);
+                }
             },
             serveOrder(order) {
                 if(!order || !order.id) return;
@@ -91,7 +94,12 @@
             },
             updateItem(item) {
                 axios.post(`order-items/${item.id}`, { data: item , _method: 'patch'})
-                    .then(response => this.setOrders(response.data ))
+                    .then(response => {
+                        if(response.data.ready) {
+                            const order = this.orders.find(o => o.id === item.order_id);
+                            order.ready = true;
+                        }
+                    })
                     .catch(error => console.error(error));
             }
         }

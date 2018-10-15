@@ -17,9 +17,9 @@ class Order extends Model {
         if($ready) {
             $this->ready = true;
             $this->save();
-            return 'set ready';
+            return true;
         }
-        return 'not ready yet';
+        return false;
     }
 
     private static function all_items($array, $key) {
