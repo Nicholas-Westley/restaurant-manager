@@ -163,6 +163,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\FormServiceProvider::class,
 
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
 
     ],
 
@@ -215,7 +217,10 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Pusher' => Pusher\Pusher::class
+        'Pusher' => Pusher\Pusher::class,
+
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 
 
     ],

@@ -11,7 +11,7 @@ use App\User;
 class RecipesController extends Controller {
 
     public function __construct() {
-        $this->middleware('auth', ['except' => []]);
+
     }
 
     public function index($restaurant_id) {

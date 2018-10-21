@@ -1,3 +1,8 @@
+#Project specific
+*/pusher.js
+**/config.js
+
+#laravel & vue
 /node_modules
 /public/hot
 /public/css

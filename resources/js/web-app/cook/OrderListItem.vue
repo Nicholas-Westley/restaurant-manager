@@ -39,11 +39,6 @@
         name: "order",
         components: {OrderOperations},
         props: ['order', 'selectedOrder'],
-        methods: {
-            con() {
-                console.log("I don't think so")
-            }
-        }
   }
 </script>
 

@@ -12,6 +12,8 @@ Route::group(['middleware'=>'api'], function() {
     /* RECIPES RESOURCE */
     Route::resource('restaurants/{restaurant_id}/recipes', 'Api\RecipesController')
         ->only(['index', 'show']);
+    /* API LOGIN */
+    Route::post('login', 'Api\Auth\AuthController@login');
 });
 /* SETTINGS */
 Route::resource('settings', 'Api\SettingsController')
