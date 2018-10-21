@@ -2,16 +2,15 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use Auth;
-use Illuminate\Auth\Events\Login;
 use JWTAuth;
-use App\User;
 use App\Http\Requests\RegisterFormRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Log;
+use App\SettingValue;
+
 class AuthController extends Controller {
     public function login(Request $request) {
-        Log::debug("WHY?");
         $credentials = $request->only('email', 'password');
         if ( ! $token = JWTAuth::attempt($credentials)) {
             return response([
@@ -20,10 +19,17 @@ class AuthController extends Controller {
                 'msg' => 'Invalid Credentials.'
             ], 400);
         }
+
+        $settings = SettingValue::whereUserId(auth()->id())
+            ->with('setting')
+            ->with('setting.settingOptions')
+            ->get();
+
         return response([
             'status' => 'success',
             'token' => $token,
-            'user' => Auth::user()
+            'user' => Auth::user(),
+            'settings' => $settings
         ]);
     }
 }
