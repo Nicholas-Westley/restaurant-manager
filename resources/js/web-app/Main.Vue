@@ -11,7 +11,7 @@
         </div>
 
         <template v-if="currentView === 'Chef'">
-            <cook-controller/>
+            <chef-controller/>
         </template>
         <template v-if="currentView === 'Customer' || currentView === 'Cashier'">
             <order-controller/>
@@ -21,14 +21,14 @@
 </template>
 
 <script>
-    import CookController from "./cook/Controller";
-    import OrderController from "./order/Controller";
+    import ChefController from 'restaurant-manager-vue-chef-library';
+    import OrderController from 'restaurant-manager-vue-order-library';
     import ViewSwitcher from "./ViewSwitcher";
     import EventReceiverViewer from "./EventReceiverViewer";
     export default {
         name: 'App',
         components: {
-            CookController,
+            ChefController,
             OrderController,
             ViewSwitcher,
             EventReceiverViewer,

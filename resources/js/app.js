@@ -6,17 +6,11 @@ import Vue from 'vue';
 import Main from './web-app/Main';
 import MainSettings from './settings-app/MainSettings';
 import './plugins/vuetify';
-import Config from './web-app/config/config';
+import './axios';
+import 'restaurant-manager-vue-chef-library/dist/restaurant-manager-vue-chef-library.css';
+import 'restaurant-manager-vue-chef-library/dist/restaurant-manager-vue-order-library.css';
 
 Vue.config.productionTip = false;
-axios.defaults.baseURL = Config.api;
-
-
-const token= document.getElementsByName('csrf-token')[0];
-axios.defaults.headers.common = {
-    'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-TOKEN' : token.content
-};
 
 if(document.getElementById("vue")) {
     /* eslint-disable no-new */
