@@ -14,7 +14,7 @@
             <chef-controller/>
         </template>
         <template v-if="currentView === 'Customer' || currentView === 'Cashier'">
-            <order-controller/>
+            <order-controller :assetsUrl="assetsUrl"/>
         </template>
 
     </v-app>
@@ -27,6 +27,7 @@
     import EventReceiverViewer from "./EventReceiverViewer";
     export default {
         name: 'App',
+        props: ['assetsUrl'],
         components: {
             ChefController,
             OrderController,
