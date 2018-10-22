@@ -84,9 +84,7 @@ class OrdersController extends Controller
             $pusherConfig['events']['order_received'],
             $data
         );
-        Log::debug([$pusherConfig['channel'],
-            $pusherConfig['events']['order_received'],
-            $data]);
+        return ['order' => $order];
     }
 
     /**
