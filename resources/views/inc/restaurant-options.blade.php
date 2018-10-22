@@ -5,6 +5,11 @@
         Open Webapp
     </a>
     <a
+        class="btn btn-warning btn-sm"
+        href="/restaurants/{{ $restaurant['id'] }}">
+        Manage
+    </a>
+    <a
         class="btn btn-secondary btn-sm"
         href="restaurants/{{ $restaurant['id'] }}/invitations/create">
         Invite Employee
