@@ -1,8 +1,9 @@
 
 
+
 ## About Restaurant Manager
 
-An app for front and back of house restaurant communication.  Especially useful if staff speak different languages.
+An app for restaurant management.  Including POS app and stock management.
 
 Developed for "Jong's Latin Fusion" Restaurant and open sourced at their request.  This app is still very much under development.
 
@@ -28,14 +29,20 @@ Create a pusher.com subscription and create an app.  Add the credentials to:
 **resources/js/web-app/config/pusher.js**
 
     export default {  
-        key: "4cf4abf2413c0c3719ac",  
-        cluster: "ap1",  
-        channel: 'jongs',  
+        key: "<app_key>",  
+        cluster: "<app_cluster>",  
+        channel: '<channel_string>',  
         events: {  
             order_received: 'order_received'  
       }  
     };
 
+## POS app ui components
+
+The vue component libraries used both in the web app app and the phone/tablet apps can be found at:
+
+[restaurant-manager-vue-order-library](https://github.com/Nicholas-Westley/restaurant-manager-vue-order-library)
+[restaurant-manager-vue-chef-library](https://github.com/Nicholas-Westley/restaurant-manager-vue-chef-library)
 
 
 ## License
