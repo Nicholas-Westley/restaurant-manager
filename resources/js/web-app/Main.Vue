@@ -1,22 +1,25 @@
 <template>
     <v-app id="app">
+        <!-- VIEW SWITCHER -->
         <view-switcher
             v-if="['Chef', 'Cashier'].includes(userType)"
-            @viewSwitched="viewSwitched"
+            @viewSwitched="currentView = $event"
             :currentView="currentView"
         />
-
-        <div v-if="['Chef', 'Cashier'].includes(userType)">
-            <event-receiver-viewer @switchToChef="currentView='Chef'"/>
-        </div>
-
-        <template v-if="currentView === 'Chef'">
-            <chef-controller/>
-        </template>
-        <template v-if="currentView === 'Customer' || currentView === 'Cashier'">
-            <order-controller :assetsUrl="assetsUrl"/>
-        </template>
-
+        <!-- NEW ORDER NOTIFICATION -->
+        <order-receiver-viewer
+            v-if="['Chef', 'Cashier'].includes(userType)"
+            @switchToChef="currentView='Chef'"/>
+        <!-- CHEF VIEW -->
+        <keep-alive>
+            <chef-controller v-if="currentView === 'Chef'"/>
+        </keep-alive>
+        <!-- ORDER VIEW-->
+        <keep-alive>
+            <order-controller
+                v-if="currentView === 'Customer' || currentView === 'Cashier'"
+                :assetsUrl="assetsUrl"/>
+        </keep-alive>
     </v-app>
 </template>
 
@@ -24,7 +27,7 @@
     import ChefController from 'restaurant-manager-vue-chef-library';
     import OrderController from 'restaurant-manager-vue-order-library';
     import ViewSwitcher from "./ViewSwitcher";
-    import EventReceiverViewer from "./EventReceiverViewer";
+    import OrderReceiverViewer from "./OrderReceiverViewer";
     export default {
         name: 'App',
         props: ['assetsUrl'],
@@ -32,7 +35,7 @@
             ChefController,
             OrderController,
             ViewSwitcher,
-            EventReceiverViewer,
+            OrderReceiverViewer,
         },
         data() {
             return {
@@ -45,28 +48,6 @@
             const setting = window.user_settings.find(s => s.setting.setting_key === 'user_type');
             this.userType = setting.value;
             this.currentView = this.userType;
-            this.setupEvents();
-        },
-        methods: {
-            switchToChef() {
-                console.warn("SWITCHING TO CHEF")
-            },
-            viewSwitched(viewType) {
-                this.currentView = viewType;
-            },
-            setupEvents() {
-                // Pusher.logToConsole = true;
-
-                var pusher = new Pusher('27a7024685e842c6a2d3', {
-                    cluster: 'ap1',
-                    forceTLS: true
-                });
-
-                var channel = pusher.subscribe('my-channel');
-                channel.bind('my-event', function(data) {
-                    this.event = data;
-                });
-            }
         }
     };
 </script>
