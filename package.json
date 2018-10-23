@@ -13,7 +13,7 @@
     "dependencies": {
         "material-design-icons-iconfont": "^3.0.3",
         "restaurant-manager-vue-chef-library": "^0.1.2",
-        "restaurant-manager-vue-order-library": "^0.1.14",
+        "restaurant-manager-vue-order-library": "^0.1.15",
         "roboto-fontface": "*",
         "vuetify": "^1.2.0"
     },

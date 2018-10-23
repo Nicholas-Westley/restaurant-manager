@@ -18,7 +18,8 @@
         <keep-alive>
             <order-controller
                 v-if="currentView === 'Customer' || currentView === 'Cashier'"
-                :assetsUrl="assetsUrl"/>
+                :assetsUrl="assetsUrl"
+                :restaurantId="restaurantId"/>
         </keep-alive>
     </v-app>
 </template>
@@ -42,12 +43,14 @@
                 currentView: '',
                 userType: '',
                 event: null,
+                restaurantId: null,
             };
         },
         created() {
             const setting = window.user_settings.find(s => s.setting.setting_key === 'user_type');
             this.userType = setting.value;
             this.currentView = this.userType;
+            this.restaurantId = window.restaurant;
         }
     };
 </script>
