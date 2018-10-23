@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:100,300,400');
+
+.landing-container {
+
+	a {
+		text-decoration: none;
+	}
+
+    .tag {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 44px;
+        text-align: center;
+        font-weight: 100;
+        width: 80%;
+		margin-top: 64px;
+        margin: auto;
+
+        .sub-tag {
+            font-size: 22px;
+            margin: 0 128px;
+        }
+    }
+
+	.action-container {
+		text-align: center;
+		width: 300px;
+		margin: 32px auto;
+
+		button {
+			font-size: 200%;
+		}
+	}
+}
+
+

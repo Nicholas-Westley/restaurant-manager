@@ -1,10 +1,12 @@
 <?php
 
+/* LANDING */
+Route::get('/', 'LandingController@index');
+
 /* WEB APP*/
 Route::get('/webapp/{restaurant_id}', 'WebAppController@show');
 
 /* DASHBOARD */
-Route::get('/', 'DashboardController@index');
 Route::get('dashboard', 'DashboardController@index');
 
 /* RECIPES */
